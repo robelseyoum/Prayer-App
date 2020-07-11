@@ -17,10 +17,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun printName() {
-        textId.text = person.name
+        textId.text = "${person.firstName} ${person.lastName}"
     }
 
     private fun createName() {
-        person = Person("Robel Seyoum")
+        person = Person("Robel", "Seyoum")
     }
 }

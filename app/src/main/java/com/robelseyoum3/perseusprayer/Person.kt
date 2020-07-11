@@ -1,3 +1,3 @@
 package com.robelseyoum3.perseusprayer
 
-data class Person(var name: String)
+data class Person(var firstName: String, var lastName: String)
