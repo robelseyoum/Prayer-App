@@ -7,9 +7,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var person: Person
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        textId.text = ABOUT_ME
+        createName()
+        printName()
+    }
+
+    private fun printName() {
+        textId.text = "${person.firstName} ${person.lastName}"
+    }
+
+    private fun createName() {
+        person = Person("Robel", "Seyoum")
     }
 }
