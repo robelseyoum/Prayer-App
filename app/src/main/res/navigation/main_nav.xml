@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/prayerTimesFragment">
+
+    <fragment
+        android:id="@+id/prayerTimesFragment"
+        android:name="com.robelseyoum3.perseusprayer.ui.main.prayertimes.PrayerTimesFragment"
+        android:label="@string/prayer_time" />
+    <fragment
+        android:id="@+id/managePlacesFragment"
+        android:name="com.robelseyoum3.perseusprayer.ui.main.manageplaces.ManagePlacesFragment"
+        android:label="@string/manage_places" />
+    <fragment
+        android:id="@+id/qiblaFragment"
+        android:name="com.robelseyoum3.perseusprayer.ui.main.qibla.QiblaFragment"
+        android:label="@string/qibla" />
+</navigation>

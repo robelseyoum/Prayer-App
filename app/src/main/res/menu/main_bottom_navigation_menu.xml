@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:id="@+id/prayerTimesFragment"
+        android:title="@string/prayer_time"
+        android:icon="@drawable/ic_prayer_time_24dp"/>
+
+    <item android:id="@+id/managePlacesFragment"
+        android:title="@string/manage_places"
+        android:icon="@drawable/ic_manage_location_24dp"
+        />
+
+    <item android:id="@+id/qiblaFragment"
+        android:title="@string/qibla"
+        android:icon="@drawable/ic_qibla_24dp"/>
+
+</menu>

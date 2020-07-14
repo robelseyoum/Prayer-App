@@ -1,4 +1,4 @@
-package com.robelseyoum3.perseusprayer
+package com.robelseyoum3.perseusprayer.utils
 
 class Constants {
 

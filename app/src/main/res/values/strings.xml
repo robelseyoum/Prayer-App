@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">perseusprayer</string>
+    <string name="app_name">Perseus Prayer</string>
+
+
+    <!--  Button navigator menu names  -->
+    <string name="prayer_time">Prayer Times</string>
+    <string name="manage_places">Manage Places</string>
+    <string name="qibla">Qibla</string>
 </resources>
