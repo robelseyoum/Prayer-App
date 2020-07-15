@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -22,9 +23,13 @@ import com.google.android.gms.location.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.robelseyoum3.perseusprayer.R
 import com.robelseyoum3.perseusprayer.ui.BaseActivity
+import com.robelseyoum3.perseusprayer.ui.main.prayertimes.PrayerTimesViewModel
+import com.robelseyoum3.perseusprayer.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
@@ -33,11 +38,22 @@ class MainActivity : BaseActivity() {
     //Fused Location Provider API to get users current position.
     lateinit var mFusedLocationClient: FusedLocationProviderClient
 
+
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
+
+    lateinit var viewModel: MainViewModel
+
     private lateinit var currentDate: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        viewModel = this?.run {
+            ViewModelProvider(this, providerFactory).get(MainViewModel::class.java)
+        }?: throw Exception("Invalid activity")
+
         setupActionBar()
         mFusedLocationClient  = LocationServices.getFusedLocationProviderClient(this)
 
@@ -73,19 +89,10 @@ class MainActivity : BaseActivity() {
         }
     }
 
-//    override fun setLocationCoordination(latitude: String, longitude: String) {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
-
     override fun setLocationCoordination(latitude: String, longitude: String) {
         //set the coordination
-        Log.d(TAG, "setLocationCoordination: Latitude: $latitude")
-        Log.d(TAG, "setLocationCoordination: Longitude: $longitude")
+        viewModel.getLocationCoordination(latitude, longitude)
     }
-
-//    override fun getCoordination(){
-//        //return the coordination
-//    }
 
     /**
      * get location data is code snippet is inspired from
@@ -102,10 +109,7 @@ class MainActivity : BaseActivity() {
                         requestNewLocationData()
                     } else {
                         val latitude = location.latitude.toString()
-                        Log.d(TAG, "Latitude: $latitude")
                         val longitude = location.longitude.toString()
-                        Log.d(TAG, "Longitude: $longitude")
-//                        passCoordination(latitude, longitude)
                         setLocationCoordination(latitude, longitude)
                     }
                 }
@@ -118,18 +122,6 @@ class MainActivity : BaseActivity() {
             requestPermissions()
         }
     }
-
-    /**
-     * here we used to  pass the value
-     */
-//    private fun passCoordination(latitude: String, longitude: String)  {
-//        currentDate = SimpleDateFormat("yyy-MM-dd", Locale.getDefault()).format(Date())
-//        val coordinateNumber = IssPassFragment.newInstance(latitude, longitude, currentDate)
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.fragment_container, coordinateNumber, "IssPassFragment")
-//            .commit()
-//    }
-
 
     @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {

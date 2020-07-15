@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.robelseyoum3.perseusprayer.ui.DataStateChangeListener
+import com.robelseyoum3.perseusprayer.ui.main.MainViewModel
 import com.robelseyoum3.perseusprayer.viewmodel.ViewModelProviderFactory
 import dagger.android.support.DaggerFragment
 import java.lang.ClassCastException
@@ -23,11 +24,17 @@ abstract class BaseQiblaFragment : DaggerFragment() {
 
     lateinit var viewModel: QiblaViewModel
 
+    lateinit var mainViewModel: MainViewModel
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = activity?.run {
             ViewModelProvider(this, providerFactory).get(QiblaViewModel::class.java)
+        }?: throw Exception("Invalid activity")
+
+        mainViewModel = activity?.run {
+            ViewModelProvider(this, providerFactory).get(MainViewModel::class.java)
         }?: throw Exception("Invalid activity")
     }
 

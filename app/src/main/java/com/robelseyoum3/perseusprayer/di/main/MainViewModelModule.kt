@@ -2,6 +2,7 @@ package com.robelseyoum3.perseusprayer.di.main
 
 import androidx.lifecycle.ViewModel
 import com.robelseyoum3.perseusprayer.di.ViewModelKey
+import com.robelseyoum3.perseusprayer.ui.main.MainViewModel
 import com.robelseyoum3.perseusprayer.ui.main.manageplaces.ManagePlacesViewModel
 import com.robelseyoum3.perseusprayer.ui.main.prayertimes.PrayerTimesViewModel
 import com.robelseyoum3.perseusprayer.ui.main.qibla.QiblaViewModel
@@ -26,4 +27,9 @@ abstract class MainViewModelModule {
     @IntoMap
     @ViewModelKey(QiblaViewModel ::class)
     abstract fun bindQiblaViewModel(qiblaViewModel: QiblaViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel ::class)
+    abstract fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
 }

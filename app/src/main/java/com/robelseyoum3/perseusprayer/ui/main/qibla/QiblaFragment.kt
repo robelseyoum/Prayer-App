@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.robelseyoum3.perseusprayer.R
 
 class QiblaFragment : BaseQiblaFragment() {
@@ -20,6 +21,14 @@ class QiblaFragment : BaseQiblaFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "QiblaFragment: ${viewModel.hashCode()}")
+        subscribeLocationCoordinators()
+    }
+
+    private fun subscribeLocationCoordinators() {
+        mainViewModel.coordinations.observe(this, Observer { coordinators ->
+            Log.d(TAG, "QiblaFragment: Latitude: ${coordinators["latitude"]}")
+            Log.d(TAG, "QiblaFragment: Longitude: ${coordinators["longitude"]}")
+        })
     }
 
 }
