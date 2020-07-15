@@ -1,6 +1,7 @@
 package com.robelseyoum3.perseusprayer.ui.main.qibla
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,4 +16,10 @@ class QiblaFragment : BaseQiblaFragment() {
     ): View? {
         return inflater.inflate(R.layout.qibla_fragment, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d(TAG, "QiblaFragment: ${viewModel.hashCode()}")
+    }
+
 }

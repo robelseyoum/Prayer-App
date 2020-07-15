@@ -1,6 +1,7 @@
 package com.robelseyoum3.perseusprayer.ui.main.prayertimes
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,4 +16,17 @@ class PrayerTimesFragment : BasePrayerTimesFragment(){
     ): View? {
         return inflater.inflate(R.layout.prayertimes_fragment, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d(TAG, "PrayerTimesFragment: ${viewModel.hashCode()}")
+
+//        stateChangeListener.setLocationCoordination("3434", "34334")
+//
+//        stateChangeListener.getCoordination()
+
+    }
+
+
+
 }
