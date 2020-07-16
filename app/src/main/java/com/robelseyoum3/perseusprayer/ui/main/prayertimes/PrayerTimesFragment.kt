@@ -10,7 +10,6 @@ import com.robelseyoum3.perseusprayer.R
 
 class PrayerTimesFragment : BasePrayerTimesFragment(){
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,37 +26,18 @@ class PrayerTimesFragment : BasePrayerTimesFragment(){
     }
 
     private fun subscribePrayerTimes() {
-
         mainViewModel.getPrayersTimes()
+        mainViewModel.prayerTimeMutableLiveData.observe(this, Observer { prayertimes ->
 
-        mainViewModel.mDate.observe(this, Observer {
-                Log.d(TAG, "PrayerTimesFragment: Date, Month, Year: $it")
-        })
-        mainViewModel.mImsaak.observe(this, Observer {
-            Log.d(TAG, "PrayerTimesFragment: imsaak: $it")
-        })
+            Log.d(TAG, "PrayerTimesFragment: Date, Month, Year: ${prayertimes.mDate}")
+            Log.d(TAG, "PrayerTimesFragment: imsaak: ${prayertimes.mImsaak}")
+            Log.d(TAG, "PrayerTimesFragment: Fajr: ${prayertimes.mFajr}")
+            Log.d(TAG, "PrayerTimesFragment: sunrise: ${prayertimes.mSunrise}")
+            Log.d(TAG, "PrayerTimesFragment: Zuhr: ${prayertimes.mZuhr}")
+            Log.d(TAG, "PrayerTimesFragment: Asr: ${prayertimes.mAsr}")
+            Log.d(TAG, "PrayerTimesFragment: Maghrib: ${prayertimes.mMaghrib}")
+            Log.d(TAG, "PrayerTimesFragment: ISHA: ${prayertimes.mISHA}")
 
-        mainViewModel.mFajr.observe(this, Observer {
-            Log.d(TAG, "PrayerTimesFragment: Fajr: $it")
-        })
-        mainViewModel.mSunrise.observe(this, Observer {
-            Log.d(TAG, "PrayerTimesFragment: sunrise: $it")
-        })
-
-        mainViewModel.mZuhr.observe(this, Observer {
-            Log.d(TAG, "PrayerTimesFragment: Zuhr: $it")
-        })
-
-        mainViewModel.mAsr.observe(this, Observer {
-            Log.d(TAG, "PrayerTimesFragment: Asr: $it")
-        })
-
-        mainViewModel.mMaghrib.observe(this, Observer {
-            Log.d(TAG, "PrayerTimesFragment: Maghrib: $it")
-        })
-
-        mainViewModel.mISHA.observe(this, Observer {
-            Log.d(TAG, "PrayerTimesFragment: ISHA: $it")
         })
     }
 

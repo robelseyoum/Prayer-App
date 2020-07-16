@@ -1,11 +1,14 @@
 package com.robelseyoum3.perseusprayer.ui.main
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.azan.Azan
 import com.azan.Method
+import com.azan.PrayerTime
 import com.azan.astrologicalCalc.Location
 import com.azan.astrologicalCalc.SimpleDate
+import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import java.util.*
 import javax.inject.Inject
 
@@ -13,15 +16,7 @@ class MainViewModel  @Inject constructor() : ViewModel()  {
 
 
     var coordinations: MutableLiveData<MutableMap<String, Double>> = MutableLiveData()
-
-    var mDate: MutableLiveData<MutableList<String>> = MutableLiveData()
-    var mImsaak: MutableLiveData<String> = MutableLiveData()
-    var mFajr: MutableLiveData<String> = MutableLiveData()
-    var mSunrise: MutableLiveData<String> = MutableLiveData()
-    var mZuhr: MutableLiveData<String> = MutableLiveData()
-    var mAsr: MutableLiveData<String> = MutableLiveData()
-    var mMaghrib: MutableLiveData<String> = MutableLiveData()
-    var mISHA: MutableLiveData<String> = MutableLiveData()
+    var prayerTimeMutableLiveData: MutableLiveData<PrayerTimes> = MutableLiveData()
 
     fun getLocationCoordination(latitude: String, longitude: String) {
         coordinations.value = mutableMapOf(("latitude" to latitude.toDouble()),("longitude" to longitude.toDouble()))
@@ -40,14 +35,16 @@ class MainViewModel  @Inject constructor() : ViewModel()  {
         val prayerTimes = azan.getPrayerTimes(today)
         val imsaak = azan.getImsaak(today)
 
-        mDate.value = mutableListOf(today.day.toString(), today.month.toString(), today.year.toString())
-        mImsaak.value = imsaak.toString()
-        mFajr.value = prayerTimes.fajr().toString()
-        mSunrise.value = prayerTimes.thuhr().toString()
-        mZuhr.value = prayerTimes.assr().toString()
-        mAsr.value = prayerTimes.thuhr().toString()
-        mMaghrib.value = prayerTimes.toString()
-        mISHA.value = prayerTimes.toString()
+        prayerTimeMutableLiveData.value =  PrayerTimes(mutableListOf(today.day.toString(), today.month.toString(), today.year.toString()),
+                                            imsaak.toString(),
+                                            prayerTimes.fajr().toString(),
+                                            prayerTimes.shuruq().toString(),
+                                            prayerTimes.thuhr().toString(),
+                                            prayerTimes.assr().toString(),
+                                            prayerTimes.maghrib().toString(),
+                                            prayerTimes.ishaa().toString()
+                                        )
     }
+
 
 }
