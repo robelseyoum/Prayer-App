@@ -70,4 +70,6 @@ abstract class BaseActivity : DaggerAppCompatActivity(), DataStateChangeListener
 
         abstract fun displayProgressBar(boolean: Boolean)
 
+        abstract fun setLocationCoordination(latitude: String, longitude: String) //get the the coordinate
+
 }
