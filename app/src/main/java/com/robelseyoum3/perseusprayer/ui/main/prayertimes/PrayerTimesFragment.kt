@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.robelseyoum3.perseusprayer.R
+import kotlinx.android.synthetic.main.prayertimes_fragment.*
 
 class PrayerTimesFragment : BasePrayerTimesFragment(){
 
@@ -28,6 +29,16 @@ class PrayerTimesFragment : BasePrayerTimesFragment(){
     private fun subscribePrayerTimes() {
         mainViewModel.getPrayersTimes()
         mainViewModel.prayerTimeMutableLiveData.observe(this, Observer { prayertimes ->
+
+            fajr.text = prayertimes.mFajr
+            sunrise.text = prayertimes.mSunrise
+            dhuhr.text = prayertimes.mZuhr
+            asr.text = prayertimes.mAsr
+            maghrib.text = prayertimes.mMaghrib
+            sunset.text = prayertimes.mSunrise
+            isha.text = prayertimes.mISHA
+
+            current_date.text = prayertimes.mDate.toString()
 
             Log.d(TAG, "PrayerTimesFragment: Date, Month, Year: ${prayertimes.mDate}")
             Log.d(TAG, "PrayerTimesFragment: imsaak: ${prayertimes.mImsaak}")

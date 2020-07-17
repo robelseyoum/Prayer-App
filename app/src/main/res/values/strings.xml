@@ -2,8 +2,26 @@
     <string name="app_name">Perseus Prayer</string>
 
 
+
     <!--  Button navigator menu names  -->
     <string name="prayer_time">Prayer Times</string>
     <string name="manage_places">Manage Places</string>
     <string name="qibla">Qibla</string>
+
+
+
+
+    <!-- Prayer time names -->
+    <string name="fajr">Fajr</string>
+    <string name="dhuhr">Dhuhr</string>
+    <string name="asr">Asr</string>
+    <string name="maghrib">Maghrib</string>
+    <string name="isha">Isha</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+
+    <string name="retry">Retry</string>
+    <string name="image">Image</string>
+    <string name="dummy_message">Dummy Message</string>
+
 </resources>
