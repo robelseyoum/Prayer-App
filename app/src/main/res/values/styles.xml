@@ -10,6 +10,37 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
+
     </style>
+
+    <style name="Widget.CardTitle" parent="android:Widget">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="Widget.CardTitle.Text" parent="android:Widget">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">?attr/colorPrimaryDark</item>
+    </style>
+
+    <style name="Widget.TimeRow" parent="android:Widget">
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+
+    <style name="Widget.TimeRow.Separator" parent="Widget.TimeRow">
+        <item name="android:background">?attr/rowWithSeparatorBackground</item>
+    </style>
+
+
+
+
 
 </resources>

@@ -68,12 +68,6 @@ class MainActivity : BaseActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
         getLastLocation()
-        currentDate()
-    }
-
-    private fun currentDate(){
-        currentDate = SimpleDateFormat("yyy-MM-dd", Locale.getDefault()).format(Date())
-        Log.d(TAG, "Dates : $currentDate")
     }
 
     private fun setupActionBar(){

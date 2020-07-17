@@ -1,20 +1,379 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="PrayerTimes"
-        android:textSize="43sp"
+        android:id="@+id/card_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Timezone"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/timezone_color"
+        android:background="#10141420"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/current_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Currentdate"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_color"
+        android:background="#10141420"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/fajrText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/fajr"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_color"
+        android:background="#10141420"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/current_date"
+        app:layout_constraintEnd_toStartOf="@id/fajr"
+        />
+
+
+    <TextView
+        android:id="@+id/fajr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="FajreText"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_data_color"
+        android:background="#10141420"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/current_date"
+        app:layout_constraintStart_toEndOf="@id/fajrText"
+        />
+
+
+
+    <TextView
+        android:id="@+id/sunrise_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sunrise"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_color"
+        android:background="#10141420"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fajrText"
+        app:layout_constraintEnd_toStartOf="@id/sunrise"
+
+        />
+
+    <TextView
+        android:id="@+id/sunrise"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:tag="@string/sunrise"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_data_color"
+        android:background="#10141420"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fajr"
+        app:layout_constraintStart_toEndOf="@id/sunrise_text"
+        />
+
+    <TextView
+        android:id="@+id/dhuhr_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/dhuhr"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_color"
+        android:background="#10141420"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sunrise_text"
+        app:layout_constraintEnd_toStartOf="@id/dhuhr"
+
+        />
+
+    <TextView
+        android:id="@+id/dhuhr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_data_color"
+        android:background="#10141420"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sunrise"
+        app:layout_constraintStart_toEndOf="@id/dhuhr_text"
+        />
+
+    <TextView
+        android:id="@+id/asr_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/asr"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_color"
+        android:background="#10141420"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dhuhr_text"
+        app:layout_constraintEnd_toStartOf="@id/asr"
+
+        />
+
+    <TextView
+        android:id="@+id/asr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_data_color"
+        android:background="#10141420"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dhuhr"
+        app:layout_constraintStart_toEndOf="@id/asr_text"
+        />
+
+    <TextView
+        android:id="@+id/maghrib_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/maghrib"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_color"
+        android:background="#10141420"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/asr_text"
+        app:layout_constraintEnd_toStartOf="@id/maghrib"
+
+        />
+
+    <TextView
+        android:id="@+id/maghrib"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_data_color"
+        android:background="#10141420"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/asr"
+        app:layout_constraintStart_toEndOf="@id/maghrib_text"
+        />
+
+    <TextView
+        android:id="@+id/sunset_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sunset"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_color"
+        android:background="#10141420"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/maghrib_text"
+        app:layout_constraintEnd_toStartOf="@id/sunset"
+
+        />
+
+    <TextView
+        android:id="@+id/sunset"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_data_color"
+        android:background="#10141420"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/maghrib"
+        app:layout_constraintStart_toEndOf="@id/sunset_text"
+        />
+
+    <TextView
+        android:id="@+id/isha_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/isha"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_color"
+        android:background="#10141420"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sunset_text"
+        app:layout_constraintEnd_toStartOf="@id/isha"
+
+        />
+
+    <TextView
+        android:id="@+id/isha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:textColor="@android:color/black"
+        android:textColor="@color/pray_data_color"
+        android:background="#10141420"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sunset"
+        app:layout_constraintStart_toEndOf="@id/isha_text"
+        />
+
+
+
+
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar_frg"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:visibility="invisible"
+        />
+
+    <LinearLayout
+        android:id="@+id/llMessageContainer"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.4"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvMessage"
+            tools:text="@string/dummy_message"/>
+
+        <Button
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnRetry"
+            android:background="@color/error"
+            android:textColor="@android:color/white"
+            android:text="@string/retry"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

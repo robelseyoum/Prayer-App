@@ -18,4 +18,10 @@
     <color name="grey3">#a8a8a8</color>
     <color name="grey4">#7d7d7d</color>
     <color name="grey5">#5c5c5c</color>
+    <color name="error">#E61000</color>
+    <color name="pray_color">#AE86EA15</color>
+    <color name="timezone_color">#EDDA78</color>
+    <color name="pray_data_color">#48D9DE</color>
+
+
 </resources>

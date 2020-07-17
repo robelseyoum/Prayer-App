@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+        <dimen name="marginTop">16dp</dimen>
+        <dimen name="marignHorizontal">90dp</dimen>
+        <dimen name="marginVertical">300dp</dimen>
+        <dimen name="margin_button">5dp</dimen>
+        <dimen name="eight_dp">8dp</dimen>
+        <dimen name="four_dp">4dp</dimen>
+
+</resources>
