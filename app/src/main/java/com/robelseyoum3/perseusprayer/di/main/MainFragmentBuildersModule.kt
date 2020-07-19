@@ -1,8 +1,6 @@
 package com.robelseyoum3.perseusprayer.di.main
 
-import com.robelseyoum3.perseusprayer.ui.main.manageplaces.ManagePlacesFragment
 import com.robelseyoum3.perseusprayer.ui.main.prayertimes.PrayerTimesFragment
-import com.robelseyoum3.perseusprayer.ui.main.qibla.BaseQiblaFragment
 import com.robelseyoum3.perseusprayer.ui.main.qibla.QiblaFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -15,8 +13,5 @@ abstract class MainFragmentBuildersModule {
 
     @ContributesAndroidInjector()
     abstract fun contributePrayerTimesFragment(): PrayerTimesFragment
-
-    @ContributesAndroidInjector()
-    abstract fun contributeManagePlacesFragment(): ManagePlacesFragment
 
 }

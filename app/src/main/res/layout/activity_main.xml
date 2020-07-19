@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/prayerbackground"
     tools:context=".ui.main.MainActivity">
 
 
@@ -30,34 +29,32 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        >
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
 
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/main_nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/main_nav"
-        />
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progress_bar"
-            app:layout_constraintTop_toTopOf="parent"
+        <fragment
+            android:id="@+id/main_nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintVertical_bias="0.4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/main_nav"
+            tools:layout="@layout/activity_main" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:visibility="gone"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.4" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -70,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="bottom"
-        android:background="#fff"
+        android:background="@drawable/bottom_nav"
         app:itemTextColor="@color/bottom_nav_selector"
         app:itemIconTint="@color/bottom_nav_selector"
         app:menu="@menu/main_bottom_navigation_menu"
