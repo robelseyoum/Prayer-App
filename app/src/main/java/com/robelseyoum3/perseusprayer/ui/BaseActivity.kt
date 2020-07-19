@@ -1,9 +1,7 @@
 package com.robelseyoum3.perseusprayer.ui
 
 import android.util.Log
-import android.widget.Toast
-import com.robelseyoum3.perseusprayer.utils.DataState
-import com.robelseyoum3.perseusprayer.utils.displayToast
+import com.robelseyoum3.perseusprayer.utils.*
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

@@ -1,4 +1,4 @@
-package com.robelseyoum3.perseusprayer.ui
+package com.robelseyoum3.perseusprayer.utils
 
 
 data class Loading(val isLoading: Boolean) //used to show/hide progressbar

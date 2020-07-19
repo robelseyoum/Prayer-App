@@ -62,7 +62,7 @@ class MainActivity : BaseActivity() {
         val navController =  findNavController(R.id.main_nav_host_fragment)
 
         //For app bar title for each fragment
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.prayerTimesFragment, R.id.managePlacesFragment, R.id.qiblaFragment))
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.prayerTimesFragment, R.id.qiblaFragment))
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         bottomNavigationView.setupWithNavController(navController)

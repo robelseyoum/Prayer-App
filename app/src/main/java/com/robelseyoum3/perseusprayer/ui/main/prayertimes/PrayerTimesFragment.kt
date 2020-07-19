@@ -29,16 +29,18 @@ class PrayerTimesFragment : BasePrayerTimesFragment(){
     private fun subscribePrayerTimes() {
         mainViewModel.getPrayersTimes()
         mainViewModel.prayerTimeMutableLiveData.observe(this, Observer { prayertimes ->
+//            stateChangeListener.onDataStateChange(prayertimes)
 
-            fajr.text = prayertimes.mFajr
-            sunrise.text = prayertimes.mSunrise
-            dhuhr.text = prayertimes.mZuhr
-            asr.text = prayertimes.mAsr
-            maghrib.text = prayertimes.mMaghrib
-            sunset.text = prayertimes.mSunrise
-            isha.text = prayertimes.mISHA
 
-            current_date.text = prayertimes.mDate.toString()
+//            fajr.text = prayertimes.mFajr
+//            sunrise.text = prayertimes.mSunrise
+//            dhuhr.text = prayertimes.mZuhr
+//            asr.text = prayertimes.mAsr
+//            maghrib.text = prayertimes.mMaghrib
+//            sunset.text = prayertimes.mSunrise
+//            isha.text = prayertimes.mISHA
+//
+//            current_date.text = prayertimes.mDate.toString()
 
             Log.d(TAG, "PrayerTimesFragment: Date, Month, Year: ${prayertimes.mDate}")
             Log.d(TAG, "PrayerTimesFragment: imsaak: ${prayertimes.mImsaak}")

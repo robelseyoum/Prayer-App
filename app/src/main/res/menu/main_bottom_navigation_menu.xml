@@ -4,15 +4,10 @@
 
     <item android:id="@+id/prayerTimesFragment"
         android:title="@string/prayer_time"
-        android:icon="@drawable/ic_prayer_time_24dp"/>
-
-    <item android:id="@+id/managePlacesFragment"
-        android:title="@string/manage_places"
-        android:icon="@drawable/ic_manage_location_24dp"
-        />
+        android:icon="@drawable/prayer_times"/>
 
     <item android:id="@+id/qiblaFragment"
         android:title="@string/qibla"
-        android:icon="@drawable/ic_qibla_24dp"/>
+        android:icon="@drawable/kaaba_direction"/>
 
 </menu>
