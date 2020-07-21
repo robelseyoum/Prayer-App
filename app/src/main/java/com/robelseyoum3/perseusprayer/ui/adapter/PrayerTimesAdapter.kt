@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.robelseyoum3.perseusprayer.R
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.ui.adapter.viewholder.PrayerTimesViewHolder
-import java.text.SimpleDateFormat
-import java.util.*
 
 class PrayerTimesAdapter constructor(val prayerTimes: MutableList<PrayerTimes>) : RecyclerView.Adapter<PrayerTimesViewHolder>() {
 
@@ -24,8 +22,5 @@ class PrayerTimesAdapter constructor(val prayerTimes: MutableList<PrayerTimes>) 
         holder.maghribTime.text = prayerTimes[position].mMaghrib
         holder.ishaTime.text = prayerTimes[position].mISHA
     }
-
-    private val simpleDateFormat = SimpleDateFormat("dd MMMM yyyy, HH:mm:ss", Locale.ENGLISH)
-
 
 }

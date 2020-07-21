@@ -435,19 +435,48 @@
             app:layout_constraintEnd_toEndOf="parent"
             />
 
+        <TextView
+            android:id="@+id/based_on_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Based on: "
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:paddingLeft="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/guideline12"
+            app:layout_constraintEnd_toStartOf="@id/prayer_based_text"
+            app:layout_constraintTop_toTopOf="@id/guideline11" />
 
         <TextView
             android:id="@+id/prayer_based_text"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/egypt_survey"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/based_on_text"
+            app:layout_constraintBottom_toTopOf="@id/guideline12"
+            app:layout_constraintEnd_toStartOf="@id/change_based_text"
+            app:layout_constraintTop_toTopOf="@id/guideline11" />
+
+
+        <TextView
+            android:id="@+id/change_based_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/based_on"
+            android:text="change"
+            android:textColor="@color/rectangle_blue"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            android:paddingLeft="20sp"
+            app:layout_constraintStart_toEndOf="@+id/prayer_based_text"
             app:layout_constraintBottom_toTopOf="@id/guideline12"
             app:layout_constraintEnd_toStartOf="@id/guideline6"
             app:layout_constraintTop_toTopOf="@id/guideline11" />

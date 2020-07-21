@@ -15,7 +15,7 @@ class MainViewModel  @Inject constructor() : ViewModel()  {
 
     val _prayer: LiveData<Resource<PrayerTimes>> = Transformations
         .switchMap(_coordination){
-            MainRepository.getPrayersTimes(it)
+            MainRepository.getPrayersTimes(it, "EGYPT_SURVEY")
         }
 
     fun setLocationCoordination(latitude: String, longitude: String) {

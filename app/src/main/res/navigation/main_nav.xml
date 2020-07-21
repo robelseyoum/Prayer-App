@@ -8,11 +8,20 @@
     <fragment
         android:id="@+id/prayerTimesFragment"
         android:name="com.robelseyoum3.perseusprayer.ui.main.prayertimes.PrayerTimesFragment"
-        android:label="@string/prayer_time" />
+        android:label="@string/prayer_time" >
+        <action
+            android:id="@+id/action_prayerTimesFragment_to_prayerMethodsDialog"
+            app:destination="@id/prayerMethodsDialog" />
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/prayerMethodsDialog"
+        android:name="com.robelseyoum3.perseusprayer.ui.main.prayertimes.PrayerMethodsDialog"
+        android:label="PrayerMethodsDialog" />
 
     <fragment
         android:id="@+id/qiblaFragment"
         android:name="com.robelseyoum3.perseusprayer.ui.main.qibla.QiblaFragment"
         android:label="@string/qibla" />
-
 </navigation>

@@ -18,7 +18,7 @@ object MainRepository {
     var job: CompletableJob? = null
 
 
-    fun getPrayersTimes(_coordination: MutableMap<String, Double>): LiveData<Resource<PrayerTimes>> {
+    fun getPrayersTimes(_coordination: MutableMap<String, Double>, prayerBaseLoc: String): LiveData<Resource<PrayerTimes>> {
         job = Job()
 
         val today = SimpleDate(GregorianCalendar())
@@ -29,7 +29,9 @@ object MainRepository {
             0
         )
 
-        val azan = Azan(location, Method.EGYPT_SURVEY)
+        val prayerBasedMethod = checkPrayerBased(prayerBaseLoc)
+
+        val azan = Azan(location, prayerBasedMethod)
         val prayerTimes = azan.getPrayerTimes(today)
         val imsaak = azan.getImsaak(today)
 
@@ -73,6 +75,18 @@ object MainRepository {
                     }
                 }
             }
+        }
+    }
+
+    private fun checkPrayerBased(methodType: String) : Method {
+        return when (methodType) {
+            "EGYPT_SURVEY" -> Method.EGYPT_SURVEY
+            "FIXED_ISHAA" -> Method.FIXED_ISHAA
+            "KARACHI_HANAF" -> Method.KARACHI_HANAF
+            "MUSLIM_LEAGUE" -> Method.MUSLIM_LEAGUE
+            "NORTH_AMERICA" -> Method.NORTH_AMERICA
+            "UMM_ALQURRA" -> Method.UMM_ALQURRA
+            else -> Method.NONE
         }
     }
 

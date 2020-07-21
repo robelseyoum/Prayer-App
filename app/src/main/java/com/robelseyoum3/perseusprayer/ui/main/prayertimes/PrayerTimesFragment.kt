@@ -13,7 +13,7 @@ import com.robelseyoum3.perseusprayer.ui.adapter.PrayerTimesAdapter
 import com.robelseyoum3.perseusprayer.utils.Resource
 import kotlinx.android.synthetic.main.prayertimes_fragment.*
 
-class PrayerTimesFragment : BasePrayerTimesFragment(){
+class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     lateinit var prayerTimesAdapter: PrayerTimesAdapter
 
@@ -56,7 +56,6 @@ class PrayerTimesFragment : BasePrayerTimesFragment(){
     }
 
     private fun setPrayerTimesFields(prayerTimes: PrayerTimes) {
-
             prayerTimesAdapter.prayerTimes.clear()
             prayerTimesAdapter.prayerTimes.addAll(mutableListOf(prayerTimes))
             prayerTimesAdapter.notifyDataSetChanged()
@@ -64,15 +63,6 @@ class PrayerTimesFragment : BasePrayerTimesFragment(){
             progress_bar_frg.visibility = View.GONE
             rvTimes.visibility = View.VISIBLE
             llMessageContainer.visibility = View.GONE
-
-            Log.d(TAG, "PrayerTimesFragment: Date, Month, Year: ${prayerTimes.mDate}")
-            Log.d(TAG, "PrayerTimesFragment: imsaak: ${prayerTimes.mImsaak}")
-            Log.d(TAG, "PrayerTimesFragment: Fajr: ${prayerTimes.mFajr}")
-            Log.d(TAG, "PrayerTimesFragment: sunrise: ${prayerTimes.mSunrise}")
-            Log.d(TAG, "PrayerTimesFragment: Zuhr: ${prayerTimes.mZuhr}")
-            Log.d(TAG, "PrayerTimesFragment: Asr: ${prayerTimes.mAsr}")
-            Log.d(TAG, "PrayerTimesFragment: Maghrib: ${prayerTimes.mMaghrib}")
-            Log.d(TAG, "PrayerTimesFragment: ISHA: ${prayerTimes.mISHA}")
     }
 
     private fun displayProgressbar() {
@@ -82,12 +72,10 @@ class PrayerTimesFragment : BasePrayerTimesFragment(){
     }
 
     private fun displayMessageContainer(message: String?) {
-
             llMessageContainer.visibility = View.VISIBLE
             rvTimes.visibility = View.GONE
             progress_bar_frg.visibility = View.GONE
             tvMessage.text = message
-
     }
 
     private fun subscribeLocationCoordinators() {
