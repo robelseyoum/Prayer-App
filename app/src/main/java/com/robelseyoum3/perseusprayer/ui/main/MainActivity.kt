@@ -10,8 +10,6 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
@@ -23,12 +21,9 @@ import com.google.android.gms.location.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.robelseyoum3.perseusprayer.R
 import com.robelseyoum3.perseusprayer.ui.BaseActivity
-import com.robelseyoum3.perseusprayer.ui.main.prayertimes.PrayerTimesViewModel
 import com.robelseyoum3.perseusprayer.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
@@ -37,7 +32,6 @@ class MainActivity : BaseActivity() {
     private val PERMISSION_ID = 42
     //Fused Location Provider API to get users current position.
     lateinit var mFusedLocationClient: FusedLocationProviderClient
-
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
@@ -63,6 +57,7 @@ class MainActivity : BaseActivity() {
 
         //For app bar title for each fragment
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.prayerTimesFragment, R.id.qiblaFragment))
+
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         bottomNavigationView.setupWithNavController(navController)
@@ -74,18 +69,9 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(tool_bar)
     }
 
-
-    override fun displayProgressBar(boolean: Boolean) {
-        if(boolean){
-            progress_bar.visibility = View.VISIBLE
-        } else {
-            progress_bar.visibility = View.INVISIBLE
-        }
-    }
-
     override fun setLocationCoordination(latitude: String, longitude: String) {
         //set the coordination
-        viewModel.getLocationCoordination(latitude, longitude)
+        viewModel.setLocationCoordination(latitude, longitude)
     }
 
     /**
@@ -168,5 +154,8 @@ class MainActivity : BaseActivity() {
             LocationManager.NETWORK_PROVIDER
         )
     }
+
+
+
 
 }

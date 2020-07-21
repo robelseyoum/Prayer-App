@@ -20,12 +20,12 @@ class QiblaFragment : BaseQiblaFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "QiblaFragment: ${viewModel.hashCode()}")
+        Log.d(TAG, "QiblaFragment: ${mainViewModel.hashCode()}")
         subscribeLocationCoordinators()
     }
 
     private fun subscribeLocationCoordinators() {
-        mainViewModel.coordinations.observe(this, Observer { coordinators ->
+        mainViewModel._coordination.observe(this, Observer { coordinators ->
             Log.d(TAG, "QiblaFragment: Latitude: ${coordinators["latitude"]}")
             Log.d(TAG, "QiblaFragment: Longitude: ${coordinators["longitude"]}")
         })

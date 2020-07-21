@@ -9,12 +9,10 @@
         android:id="@+id/prayerTimesFragment"
         android:name="com.robelseyoum3.perseusprayer.ui.main.prayertimes.PrayerTimesFragment"
         android:label="@string/prayer_time" />
-    <fragment
-        android:id="@+id/managePlacesFragment"
-        android:name="com.robelseyoum3.perseusprayer.ui.main.manageplaces.ManagePlacesFragment"
-        android:label="@string/manage_places" />
+
     <fragment
         android:id="@+id/qiblaFragment"
         android:name="com.robelseyoum3.perseusprayer.ui.main.qibla.QiblaFragment"
         android:label="@string/qibla" />
+
 </navigation>
