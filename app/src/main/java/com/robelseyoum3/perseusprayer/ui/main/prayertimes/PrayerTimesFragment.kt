@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.robelseyoum3.perseusprayer.R
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
+import com.robelseyoum3.perseusprayer.ui.adapter.PrayerTimesAdapter
 import com.robelseyoum3.perseusprayer.utils.Resource
 import kotlinx.android.synthetic.main.prayertimes_fragment.*
 
 class PrayerTimesFragment : BasePrayerTimesFragment(){
+
+    lateinit var prayerTimesAdapter: PrayerTimesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,8 +28,15 @@ class PrayerTimesFragment : BasePrayerTimesFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "PrayerTimesFragment: ${mainViewModel.hashCode()}")
+        setupRecyclerView()
         subscribeLocationCoordinators()
         subscribePrayerTimes()
+    }
+
+    private fun setupRecyclerView() {
+        rvTimes.layoutManager = LinearLayoutManager(view?.context)
+        prayerTimesAdapter = PrayerTimesAdapter(mutableListOf())
+        rvTimes.adapter = prayerTimesAdapter
     }
 
     private fun subscribePrayerTimes() {
@@ -46,16 +57,13 @@ class PrayerTimesFragment : BasePrayerTimesFragment(){
 
     private fun setPrayerTimesFields(prayerTimes: PrayerTimes) {
 
-            progress_bar_frg.visibility = View.GONE
-            displayPrayTimes.visibility = View.VISIBLE
-            llMessageContainer.visibility = View.GONE
+            prayerTimesAdapter.prayerTimes.clear()
+            prayerTimesAdapter.prayerTimes.addAll(mutableListOf(prayerTimes))
+            prayerTimesAdapter.notifyDataSetChanged()
 
-            fajar_time.text = prayerTimes.mFajr
-            sunrise_text.text = "SUNRISE at ${prayerTimes.mSunrise}"
-            dhuhr_time.text = prayerTimes.mZuhr
-            asar_time.text = prayerTimes.mAsr
-            maghrib_time.text = prayerTimes.mMaghrib
-            isha_time.text = prayerTimes.mISHA
+            progress_bar_frg.visibility = View.GONE
+            rvTimes.visibility = View.VISIBLE
+            llMessageContainer.visibility = View.GONE
 
             Log.d(TAG, "PrayerTimesFragment: Date, Month, Year: ${prayerTimes.mDate}")
             Log.d(TAG, "PrayerTimesFragment: imsaak: ${prayerTimes.mImsaak}")
@@ -69,14 +77,14 @@ class PrayerTimesFragment : BasePrayerTimesFragment(){
 
     private fun displayProgressbar() {
         progress_bar_frg.visibility = View.VISIBLE
-        displayPrayTimes.visibility = View.GONE
+        rvTimes.visibility = View.GONE
         llMessageContainer.visibility = View.GONE
     }
 
     private fun displayMessageContainer(message: String?) {
 
             llMessageContainer.visibility = View.VISIBLE
-            displayPrayTimes.visibility = View.GONE
+            rvTimes.visibility = View.GONE
             progress_bar_frg.visibility = View.GONE
             tvMessage.text = message
 

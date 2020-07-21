@@ -1,15 +1,11 @@
 package com.robelseyoum3.perseusprayer.ui.main.prayertimes
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.robelseyoum3.perseusprayer.ui.main.MainActivity
 import com.robelseyoum3.perseusprayer.ui.main.MainViewModel
 import com.robelseyoum3.perseusprayer.viewmodel.ViewModelProviderFactory
 import dagger.android.support.DaggerFragment
-import java.lang.ClassCastException
 import java.lang.Exception
 import javax.inject.Inject
 
