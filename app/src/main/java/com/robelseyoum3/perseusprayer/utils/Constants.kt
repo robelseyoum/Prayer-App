@@ -4,6 +4,6 @@ class Constants {
 
     companion object {
 
-        const val ABOUT_ME = "The one and only Roba Zmak"
+        const val SUNRISE = "SUNRISE at "
     }
 }

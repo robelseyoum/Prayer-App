@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.robelseyoum3.perseusprayer.R
+import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
+import com.robelseyoum3.perseusprayer.utils.Resource
 import kotlinx.android.synthetic.main.prayertimes_fragment.*
 
 class PrayerTimesFragment : BasePrayerTimesFragment(){
@@ -21,44 +23,75 @@ class PrayerTimesFragment : BasePrayerTimesFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "PrayerTimesFragment: ${viewModel.hashCode()}")
+        Log.d(TAG, "PrayerTimesFragment: ${mainViewModel.hashCode()}")
         subscribeLocationCoordinators()
         subscribePrayerTimes()
     }
 
     private fun subscribePrayerTimes() {
-        mainViewModel.getPrayersTimes()
-        mainViewModel.prayerTimeMutableLiveData.observe(this, Observer { prayertimes ->
-//            stateChangeListener.onDataStateChange(prayertimes)
+        mainViewModel._prayer.observe(this, Observer { prayerData ->
 
+            when(prayerData) {
 
-//            fajr.text = prayertimes.mFajr
-//            sunrise.text = prayertimes.mSunrise
-//            dhuhr.text = prayertimes.mZuhr
-//            asr.text = prayertimes.mAsr
-//            maghrib.text = prayertimes.mMaghrib
-//            sunset.text = prayertimes.mSunrise
-//            isha.text = prayertimes.mISHA
-//
-//            current_date.text = prayertimes.mDate.toString()
+                is Resource.Loading -> {  displayProgressbar() }
 
-            Log.d(TAG, "PrayerTimesFragment: Date, Month, Year: ${prayertimes.mDate}")
-            Log.d(TAG, "PrayerTimesFragment: imsaak: ${prayertimes.mImsaak}")
-            Log.d(TAG, "PrayerTimesFragment: Fajr: ${prayertimes.mFajr}")
-            Log.d(TAG, "PrayerTimesFragment: sunrise: ${prayertimes.mSunrise}")
-            Log.d(TAG, "PrayerTimesFragment: Zuhr: ${prayertimes.mZuhr}")
-            Log.d(TAG, "PrayerTimesFragment: Asr: ${prayertimes.mAsr}")
-            Log.d(TAG, "PrayerTimesFragment: Maghrib: ${prayertimes.mMaghrib}")
-            Log.d(TAG, "PrayerTimesFragment: ISHA: ${prayertimes.mISHA}")
+                is Resource.Success -> {setPrayerTimesFields(prayerData.data!!) }
 
+                is Resource.Error -> { displayMessageContainer(prayerData.message)}
+
+            }
         })
+
+    }
+
+    private fun setPrayerTimesFields(prayerTimes: PrayerTimes) {
+
+            progress_bar_frg.visibility = View.GONE
+            displayPrayTimes.visibility = View.VISIBLE
+            llMessageContainer.visibility = View.GONE
+
+            fajar_time.text = prayerTimes.mFajr
+            sunrise_text.text = "SUNRISE at ${prayerTimes.mSunrise}"
+            dhuhr_time.text = prayerTimes.mZuhr
+            asar_time.text = prayerTimes.mAsr
+            maghrib_time.text = prayerTimes.mMaghrib
+            isha_time.text = prayerTimes.mISHA
+
+            Log.d(TAG, "PrayerTimesFragment: Date, Month, Year: ${prayerTimes.mDate}")
+            Log.d(TAG, "PrayerTimesFragment: imsaak: ${prayerTimes.mImsaak}")
+            Log.d(TAG, "PrayerTimesFragment: Fajr: ${prayerTimes.mFajr}")
+            Log.d(TAG, "PrayerTimesFragment: sunrise: ${prayerTimes.mSunrise}")
+            Log.d(TAG, "PrayerTimesFragment: Zuhr: ${prayerTimes.mZuhr}")
+            Log.d(TAG, "PrayerTimesFragment: Asr: ${prayerTimes.mAsr}")
+            Log.d(TAG, "PrayerTimesFragment: Maghrib: ${prayerTimes.mMaghrib}")
+            Log.d(TAG, "PrayerTimesFragment: ISHA: ${prayerTimes.mISHA}")
+    }
+
+    private fun displayProgressbar() {
+        progress_bar_frg.visibility = View.VISIBLE
+        displayPrayTimes.visibility = View.GONE
+        llMessageContainer.visibility = View.GONE
+    }
+
+    private fun displayMessageContainer(message: String?) {
+
+            llMessageContainer.visibility = View.VISIBLE
+            displayPrayTimes.visibility = View.GONE
+            progress_bar_frg.visibility = View.GONE
+            tvMessage.text = message
+
     }
 
     private fun subscribeLocationCoordinators() {
-        mainViewModel.coordinations.observe(this, Observer { coordinators ->
+        mainViewModel._coordination.observe(this, Observer { coordinators ->
             Log.d(TAG, "PrayerTimesFragment: Latitude: ${coordinators["latitude"]}")
             Log.d(TAG, "PrayerTimesFragment: Longitude: ${coordinators["longitude"]}")
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mainViewModel.cancelActiveJobs()
     }
 
 }

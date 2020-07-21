@@ -23,5 +23,8 @@
     <string name="retry">Retry</string>
     <string name="image">Image</string>
     <string name="dummy_message">Dummy Message</string>
+    <string name="prayer_times">PRAYER TIMES</string>
+    <string name="based_on">Based on: University of Islamic Science, Karachi change</string>
+
 
 </resources>
