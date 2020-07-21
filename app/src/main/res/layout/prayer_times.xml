@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/displayPrayTimes">
+
+        <ImageView
+            android:id="@+id/prayer_top_page"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/ic_mask_group"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/day_city_loc"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/ic_rectangle_city_country"
+            app:layout_constraintBottom_toTopOf="@+id/prayer_rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/place_name"
+            android:layout_width="194dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="40dp"
+            android:text="London, United Kingdom"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/day_month"
+            app:layout_constraintEnd_toEndOf="@id/day_city_loc"
+            app:layout_constraintStart_toStartOf="@id/day_city_loc"
+            app:layout_constraintTop_toTopOf="@id/day_city_loc" />
+
+        <TextView
+            android:id="@+id/day_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sat 18 July"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/time"
+            app:layout_constraintEnd_toEndOf="@id/day_city_loc"
+            app:layout_constraintStart_toStartOf="@id/day_city_loc"
+            app:layout_constraintTop_toBottomOf="@id/place_name" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4:00pm"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/time"
+            app:layout_constraintEnd_toEndOf="@id/day_city_loc"
+            app:layout_constraintStart_toStartOf="@id/day_city_loc"
+            app:layout_constraintTop_toBottomOf="@id/day_month" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.53351575" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25307798" />
+
+        <ImageView
+            android:id="@+id/prayer_rectangle"
+            android:layout_width="412dp"
+            android:layout_height="548dp"
+            android:background="@drawable/ic_rectangle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+
+
+        <TextView
+            android:id="@+id/prayer_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/prayer_times"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.40" />
+
+
+        <TextView
+            android:id="@+id/fajar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingLeft="8sp"
+            android:text="Fajar"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/guideline4"
+            app:layout_constraintEnd_toStartOf="@id/fajar_time"
+            app:layout_constraintStart_toEndOf="@id/guideline5"
+            app:layout_constraintTop_toTopOf="@id/guideline3" />
+
+        <TextView
+            android:id="@+id/fajar_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingLeft="85sp"
+            tools:text="fajar_time"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/guideline4"
+            app:layout_constraintEnd_toEndOf="@id/guideline6"
+            app:layout_constraintStart_toEndOf="@id/fajar"
+            app:layout_constraintTop_toTopOf="@id/guideline3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.47" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.08272506" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92214113" />
+
+        <!--    check the dash line-->
+        <ImageView
+            android:id="@+id/dashed_line"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dashed_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/vertical_line_timeline"
+            app:layout_constraintTop_toBottomOf="@id/guideline4" />
+
+        <TextView
+            android:id="@+id/sunrise_text"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginTop="8dp"
+            tools:text="SUNRISE at 5:10"
+            app:layout_constraintEnd_toStartOf="@id/guideline6"
+            app:layout_constraintStart_toStartOf="@id/guideline5"
+            app:layout_constraintTop_toBottomOf="@id/guideline4" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.55" />
+
+        <ImageView
+            android:id="@+id/vertical_line_timeline"
+            android:layout_width="6dp"
+            android:layout_height="240dp"
+            android:layout_marginStart="14dp"
+            android:background="@drawable/line"
+            app:layout_constraintBottom_toTopOf="@id/circle_line_timeline_isha"
+            app:layout_constraintEnd_toStartOf="@id/guideline5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/circle_line_timeline_fajar" />
+
+        <ImageView
+            android:id="@+id/circle_line_timeline_fajar"
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/pointer"
+            app:layout_constraintEnd_toStartOf="@id/guideline5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline3" />
+
+        <ImageView
+            android:id="@+id/circle_line_timeline_dhuhr"
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/pointer"
+            app:layout_constraintEnd_toStartOf="@id/guideline5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline7" />
+
+
+        <TextView
+            android:id="@+id/dhuhr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingLeft="8sp"
+            android:text="@string/dhuhr"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/guideline8"
+            app:layout_constraintEnd_toStartOf="@id/dhuhr_time"
+            app:layout_constraintStart_toEndOf="@id/guideline5"
+            app:layout_constraintTop_toTopOf="@id/guideline7" />
+
+
+        <TextView
+            android:id="@+id/dhuhr_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingLeft="78sp"
+            tools:text="dhuhr_time"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/guideline8"
+            app:layout_constraintEnd_toEndOf="@id/guideline6"
+            app:layout_constraintStart_toEndOf="@id/dhuhr"
+            app:layout_constraintTop_toTopOf="@id/guideline7" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.60" />
+
+        <TextView
+            android:id="@+id/asar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingLeft="8sp"
+            android:text="@string/asr"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/guideline9"
+            app:layout_constraintEnd_toStartOf="@id/asar_time"
+            app:layout_constraintStart_toEndOf="@id/guideline5"
+            app:layout_constraintTop_toTopOf="@id/guideline8" />
+
+
+        <TextView
+            android:id="@+id/asar_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingLeft="78sp"
+            tools:text="asar_time"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/guideline9"
+            app:layout_constraintEnd_toEndOf="@id/guideline6"
+            app:layout_constraintStart_toEndOf="@id/asar"
+            app:layout_constraintTop_toTopOf="@id/guideline8" />
+
+
+        <ImageView
+            android:id="@+id/circle_line_timeline_asar"
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/pointer"
+            app:layout_constraintEnd_toStartOf="@id/guideline5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline8" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.67" />
+
+        <ImageView
+            android:id="@+id/circle_line_timeline_maghrib"
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/pointer"
+            app:layout_constraintEnd_toStartOf="@id/guideline5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline9" />
+
+        <TextView
+            android:id="@+id/maghrib"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingLeft="8sp"
+            android:text="@string/maghrib"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/guideline10"
+            app:layout_constraintEnd_toStartOf="@id/maghrib_time"
+            app:layout_constraintStart_toEndOf="@id/guideline5"
+            app:layout_constraintTop_toTopOf="@id/guideline9" />
+
+
+        <TextView
+            android:id="@+id/maghrib_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingLeft="78sp"
+            tools:text="magh_time"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/guideline10"
+            app:layout_constraintEnd_toEndOf="@id/guideline6"
+            app:layout_constraintStart_toEndOf="@id/maghrib"
+            app:layout_constraintTop_toTopOf="@id/guideline9" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.72" />
+
+        <ImageView
+            android:id="@+id/circle_line_timeline_isha"
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/pointer"
+            app:layout_constraintEnd_toStartOf="@id/guideline5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline10" />
+
+        <TextView
+            android:id="@+id/isha"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingLeft="8sp"
+            android:text="@string/isha"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/guideline11"
+            app:layout_constraintEnd_toStartOf="@id/isha_time"
+            app:layout_constraintStart_toEndOf="@id/guideline5"
+            app:layout_constraintTop_toTopOf="@id/guideline10" />
+
+
+        <TextView
+            android:id="@+id/isha_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingLeft="78sp"
+            tools:text="isha_time"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/guideline11"
+            app:layout_constraintEnd_toEndOf="@id/guideline6"
+            app:layout_constraintStart_toEndOf="@id/isha"
+            app:layout_constraintTop_toTopOf="@id/guideline10" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.79" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/guideline11"
+            android:background="@drawable/ic_line_horizonal_separator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+
+        <TextView
+            android:id="@+id/prayer_based_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/based_on"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingLeft="20sp"
+            app:layout_constraintBottom_toTopOf="@id/guideline12"
+            app:layout_constraintEnd_toStartOf="@id/guideline6"
+            app:layout_constraintTop_toTopOf="@id/guideline11" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.86" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
