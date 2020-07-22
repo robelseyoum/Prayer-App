@@ -35,11 +35,18 @@ class PrayerMethodsDialog : DialogFragment() {
         submitButton.setOnClickListener {
             val selectedId = methodRadioGroup.checkedRadioButtonId
             val selectedRadioButton = rootView.findViewById<RadioButton>(selectedId)
-            Log.d("radio", selectedRadioButton.text.toString())
+            Log.d("PrayerDialogRadio", selectedRadioButton.text.toString())
             dismiss()
         }
 
         return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val name = PrayerMethodsDialogArgs.fromBundle(arguments!!).methods
+        Log.d("PrayerMethodsDialog", name)
+
     }
 
 }

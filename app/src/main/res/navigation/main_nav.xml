@@ -18,7 +18,12 @@
     <dialog
         android:id="@+id/prayerMethodsDialog"
         android:name="com.robelseyoum3.perseusprayer.ui.main.prayertimes.PrayerMethodsDialog"
-        android:label="PrayerMethodsDialog" />
+        android:label="PrayerMethodsDialog" >
+        <argument
+            android:name="methods"
+            app:argType="string"
+            android:defaultValue="default" />
+    </dialog>
 
     <fragment
         android:id="@+id/qiblaFragment"

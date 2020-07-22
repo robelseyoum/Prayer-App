@@ -467,7 +467,7 @@
 
         <TextView
             android:id="@+id/change_based_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
@@ -476,6 +476,7 @@
             android:textColor="@color/rectangle_blue"
             android:textSize="12sp"
             android:textStyle="bold"
+            android:paddingLeft="6sp"
             app:layout_constraintStart_toEndOf="@+id/prayer_based_text"
             app:layout_constraintBottom_toTopOf="@id/guideline12"
             app:layout_constraintEnd_toStartOf="@id/guideline6"

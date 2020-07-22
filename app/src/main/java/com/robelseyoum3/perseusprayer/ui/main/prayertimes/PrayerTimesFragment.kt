@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.azan.Method
 import com.robelseyoum3.perseusprayer.R
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.ui.adapter.PrayerTimesAdapter
+import com.robelseyoum3.perseusprayer.ui.adapter.listener.PrayerBasedListener
 import com.robelseyoum3.perseusprayer.utils.Resource
 import kotlinx.android.synthetic.main.prayertimes_fragment.*
 
@@ -33,9 +36,18 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
         subscribePrayerTimes()
     }
 
+    private val prayerBasedListener: PrayerBasedListener = object : PrayerBasedListener{
+        override fun onClick(methodType: MutableMap<String, String>) {
+            Log.d(TAG, "PrayerTimesFragment: $methodType")
+            val action = PrayerTimesFragmentDirections.actionPrayerTimesFragmentToPrayerMethodsDialog("This is from Robel")
+            findNavController().navigate(action)
+
+        }
+    }
+
     private fun setupRecyclerView() {
         rvTimes.layoutManager = LinearLayoutManager(view?.context)
-        prayerTimesAdapter = PrayerTimesAdapter(mutableListOf())
+        prayerTimesAdapter = PrayerTimesAdapter(mutableListOf(), prayerBasedListener)
         rvTimes.adapter = prayerTimesAdapter
     }
 
