@@ -1,24 +1,39 @@
 package com.robelseyoum3.perseusprayer.ui.main.prayertimes
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.azan.Method
 import com.robelseyoum3.perseusprayer.R
+import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.ui.adapter.PrayerTimesAdapter
 import com.robelseyoum3.perseusprayer.ui.adapter.listener.PrayerBasedListener
+import com.robelseyoum3.perseusprayer.utils.PreferenceKeys
 import com.robelseyoum3.perseusprayer.utils.Resource
 import kotlinx.android.synthetic.main.prayertimes_fragment.*
+import javax.inject.Inject
 
 class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     lateinit var prayerTimesAdapter: PrayerTimesAdapter
+    lateinit var prayerMethods: PrayerMethods
+
+    @Inject
+    lateinit var sharedPrefsEditor: SharedPreferences.Editor
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,27 +46,49 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "PrayerTimesFragment: ${mainViewModel.hashCode()}")
+        subscribePrayerMethods()
         setupRecyclerView()
         subscribeLocationCoordinators()
         subscribePrayerTimes()
+
+        val sharedValue = sharedPreferences.getString(PreferenceKeys.METHOD_CALCULATION, "Roba_Shared")
+        //FIXED_ISHAA
+        Log.d("getPrayersTimes_pf", sharedValue)
+    }
+
+    private fun subscribePrayerMethods() {
+        prayerMethods = PrayerMethods(
+            mutableMapOf(
+                ("EGYPT_SURVEY" to "Egyptian General Authority of Survey" ),
+                ("FIXED_ISHAA" to "Fixed Ishaa Angle Interval"),
+                ("KARACHI_HANAF" to "University of Islamic Sciences, Karachi (Hanafi)"),
+                ("MUSLIM_LEAGUE" to "Egyptian General Authority of Survey" ),
+                ("NORTH_AMERICA" to "Islamic Society of North America"),
+                ("UMM_ALQURRA" to "Om Al-Qurra University" )
+            )
+        )
     }
 
     private val prayerBasedListener: PrayerBasedListener = object : PrayerBasedListener{
-        override fun onClick(methodType: MutableMap<String, String>) {
-            Log.d(TAG, "PrayerTimesFragment: $methodType")
-            val action = PrayerTimesFragmentDirections.actionPrayerTimesFragmentToPrayerMethodsDialog("This is from Robel")
-            findNavController().navigate(action)
 
+        override fun onClick(prayerMethods: PrayerMethods) {
+            val prayerMethodsDialog = PrayerMethodsDialog()
+            val arguments = Bundle()
+            arguments.putParcelable("calc_method", prayerMethods)
+            prayerMethodsDialog.arguments = arguments
+            findNavController().navigate(R.id.prayerMethodsDialog, arguments)
         }
     }
 
     private fun setupRecyclerView() {
         rvTimes.layoutManager = LinearLayoutManager(view?.context)
-        prayerTimesAdapter = PrayerTimesAdapter(mutableListOf(), prayerBasedListener)
+        prayerTimesAdapter = PrayerTimesAdapter(mutableListOf(), prayerMethods, prayerBasedListener)
         rvTimes.adapter = prayerTimesAdapter
     }
 
     private fun subscribePrayerTimes() {
+        Log.d(TAG, "PrayerTimesFragment: $prayerMethods")
+
         mainViewModel._prayer.observe(this, Observer { prayerData ->
 
             when(prayerData) {
@@ -101,5 +138,7 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
         super.onDestroy()
         mainViewModel.cancelActiveJobs()
     }
+
+
 
 }

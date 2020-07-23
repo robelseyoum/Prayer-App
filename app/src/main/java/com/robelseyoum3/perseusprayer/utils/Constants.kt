@@ -13,5 +13,14 @@ class Constants {
         const val  NORTH_AMERICA = "Islamic Society of North America"
         const val  UMM_ALQURRA = "Om Al-Qurra University"
 
+
+        const val  _EGYPT_SURVEY = "EGYPT_SURVEY"
+        const val  _FIXED_ISHAA = "FIXED_ISHAA"
+        const val  _KARACHI_HANAF = "KARACHI_HANAF"
+        const val  _MUSLIM_LEAGUE = "MUSLIM_LEAGUE"
+        const val  _NORTH_AMERICA = "NORTH_AMERICA"
+        const val  _UMM_ALQURRA = "UMM_ALQURRA"
+
+
     }
 }
