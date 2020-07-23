@@ -24,7 +24,15 @@
     <string name="image">Image</string>
     <string name="dummy_message">Dummy Message</string>
     <string name="prayer_times">PRAYER TIMES</string>
-    <string name="based_on">Based on: University of Islamic Science, Karachi change</string>
 
+
+    <string name="egypt_survey">"Egyptian General Authority of Survey"</string>
+    <string name="fixed_ishaa">"Fixed Ishaa Angle Interval" </string>
+    <string name="karachi_hanaf">"University of Islamic Sciences, Karachi (Hanafi)"</string>
+    <string name="muslim_league">"Muslim World League (MWL)"</string>
+    <string name="north_america">"Islamic Society of North America"</string>
+    <string name="umm_alqurra">"Om Al-Qurra University"</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

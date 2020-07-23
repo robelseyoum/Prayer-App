@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
     app:startDestination="@id/prayerTimesFragment">
 
     <fragment
         android:id="@+id/prayerTimesFragment"
         android:name="com.robelseyoum3.perseusprayer.ui.main.prayertimes.PrayerTimesFragment"
-        android:label="@string/prayer_time" />
+        android:label="@string/prayer_time"
+        tools:layout="@layout/prayertimes_fragment"
+        >
+        <action
+            android:id="@+id/action_prayerTimesFragment_to_prayerMethodsDialog"
+            app:destination="@id/prayerMethodsDialog" />
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/prayerMethodsDialog"
+        android:name="com.robelseyoum3.perseusprayer.ui.main.prayertimes.PrayerMethodsDialog"
+        android:label="PrayerMethodsDialog"
+        tools:layout="@layout/dialog_fragment">
+        <argument
+            android:name="calcMethods"
+            app:argType="com.robelseyoum3.perseusprayer.data.model.PrayerMethods" />
+    </dialog>
 
     <fragment
         android:id="@+id/qiblaFragment"
         android:name="com.robelseyoum3.perseusprayer.ui.main.qibla.QiblaFragment"
         android:label="@string/qibla" />
-
 </navigation>
