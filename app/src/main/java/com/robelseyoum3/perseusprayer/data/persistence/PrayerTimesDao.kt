@@ -10,7 +10,7 @@ import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 interface PrayerTimesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAndReplace(prayerTimes: PrayerTimes): Long
+    suspend  fun insertAndReplace(prayerTimes: PrayerTimes): Long
 
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)  //id data is already exist ignore it

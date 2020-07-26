@@ -1,9 +1,7 @@
 package com.robelseyoum3.perseusprayer.data.model
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import kotlinx.android.parcel.Parcelize
 
 
@@ -11,8 +9,14 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class PrayerMethods(
 
-    @PrimaryKey(autoGenerate = true) val pk: Int,
-    @ColumnInfo(name = "methodBased") val methodBased: MutableMap<String, String>) : Parcelable {
+
+    @TypeConverters(MapTypeConverter::class)
+    @ColumnInfo(name = "methodBased")
+    val methodBased: MutableMap<String, String>
+
+) : Parcelable {
+
+    @PrimaryKey(autoGenerate = true) var pk: Int = 0
 
     operator fun get(s: String): Any {
         return methodBased

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.findNavController
@@ -19,9 +20,11 @@ import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.ui.adapter.PrayerTimesAdapter
 import com.robelseyoum3.perseusprayer.ui.adapter.listener.PrayerBasedListener
+import com.robelseyoum3.perseusprayer.ui.main.MainViewModel
 import com.robelseyoum3.perseusprayer.utils.PreferenceKeys
 import com.robelseyoum3.perseusprayer.utils.Resource
 import kotlinx.android.synthetic.main.prayertimes_fragment.*
+import java.lang.Exception
 import javax.inject.Inject
 
 class PrayerTimesFragment : BasePrayerTimesFragment() {
@@ -45,6 +48,7 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         Log.d(TAG, "PrayerTimesFragment: ${mainViewModel.hashCode()}")
         subscribePrayerMethods()
         setupRecyclerView()
@@ -67,6 +71,7 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
                 ("UMM_ALQURRA" to "Om Al-Qurra University" )
             )
         )
+
     }
 
     private val prayerBasedListener: PrayerBasedListener = object : PrayerBasedListener{

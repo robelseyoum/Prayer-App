@@ -1,19 +1,16 @@
 package com.robelseyoum3.perseusprayer.ui.main.prayertimes
 
-import android.app.Dialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.RadioButton
-
-import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import com.robelseyoum3.perseusprayer.R
 import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
-import com.robelseyoum3.perseusprayer.utils.Constants
+import com.robelseyoum3.perseusprayer.ui.main.MainViewModel
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion.EGYPT_SURVEY
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion.FIXED_ISHAA
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion.KARACHI_HANAF
@@ -21,10 +18,10 @@ import com.robelseyoum3.perseusprayer.utils.Constants.Companion.MUSLIM_LEAGUE
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion.NORTH_AMERICA
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion.UMM_ALQURRA
 import com.robelseyoum3.perseusprayer.utils.PreferenceKeys
-import dagger.android.AndroidInjection
+import com.robelseyoum3.perseusprayer.viewmodel.ViewModelProviderFactory
 import dagger.android.support.DaggerDialogFragment
 import kotlinx.android.synthetic.main.dialog_fragment.*
-import kotlinx.android.synthetic.main.prayer_times.*
+import java.lang.Exception
 import javax.inject.Inject
 
 class PrayerMethodsDialog : DaggerDialogFragment() {
@@ -36,6 +33,11 @@ class PrayerMethodsDialog : DaggerDialogFragment() {
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
+
+    lateinit var mainViewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +51,10 @@ class PrayerMethodsDialog : DaggerDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         prayerMethods  = arguments!!.getParcelable<PrayerMethods>("calc_method") as PrayerMethods
 
+        mainViewModel = activity?.run { ViewModelProvider(activity!!, providerFactory).get(MainViewModel::class.java)
+        }?: throw Exception("Invalid activity")
+
+
         displayPrayMethodName(prayerMethods)
 
         submit_button.setOnClickListener {
@@ -57,8 +63,9 @@ class PrayerMethodsDialog : DaggerDialogFragment() {
             val selectedMethodValue = selectedRadioButton.text.toString()
 
             storeSelectedMethodValueToShared(selectedMethodValue)
-            val prayerBaseLoc: String? = sharedPreferences.getString(PreferenceKeys.METHOD_CALCULATION, null)
-            Log.d("ValueFromSharedClick_", prayerBaseLoc)
+
+//            val prayerBaseLoc: String? = sharedPreferences.getString(PreferenceKeys.METHOD_CALCULATION, null)
+//            Log.d("ValueFromSharedClick_", prayerBaseLoc)
             dismiss()
         }
 

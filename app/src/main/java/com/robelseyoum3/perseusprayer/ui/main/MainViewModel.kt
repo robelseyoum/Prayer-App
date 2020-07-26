@@ -17,13 +17,10 @@ class MainViewModel  @Inject constructor(val mainRepository: MainRepository, val
 
    val sharedValue = sharedPreferences.getString(PreferenceKeys.METHOD_CALCULATION, null)
 
-//    Log.d("getPrayersTimes", sharedValue)
-
-
 
     val _prayer: LiveData<Resource<PrayerTimes>> = Transformations
         .switchMap(_coordination){
-            mainRepository.getPrayersTimes(it, sharedValue)
+            mainRepository.getPrayersTimes(it,"EGYPT_SURVEY")
         }
 
     fun setLocationCoordination(latitude: String, longitude: String) {
