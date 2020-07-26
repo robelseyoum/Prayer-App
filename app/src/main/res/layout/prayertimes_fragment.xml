@@ -1,19 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/rectangle_blue">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTimes"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    
+    <ImageView
+        android:id="@+id/prayer_top_page"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="235dp"
+        android:background="@color/rectangle_blue"
+        android:src="@drawable/ic_mask_group"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!--    Create compound view for this card.-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dateTimeCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="26dp"
+        app:cardCornerRadius="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minWidth="260dp"
+            android:padding="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/city_country_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="London, United Kingdom"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/current_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sat 18 July"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                />
+
+            <TextView
+                android:id="@+id/current_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4:00pm"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Create drawable, top lef radius should be 12 & top right should be 12-->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:cardBackgroundColor="@color/white"
+        android:background="@drawable/ic_rectangle"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dateTimeCard"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="4"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/prayer_times"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_weight="0.2"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTimes"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.9"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                />
+
+            <!-- Use Spannable text to set the method of prayer.-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".9"
+                android:paddingLeft="7dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:text="Based on : University of Karachi, change"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <ProgressBar
         android:layout_width="wrap_content"
@@ -55,6 +171,10 @@
             android:text="@string/retry"/>
 
     </LinearLayout>
+
+
+
+
 
 
 

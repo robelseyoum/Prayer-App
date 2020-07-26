@@ -31,11 +31,11 @@ class PrayerTimesAdapter constructor(val prayerTimes: MutableList<PrayerTimes>, 
         holder.maghribTime.text = prayerTimes[position].mMaghrib
         holder.ishaTime.text = prayerTimes[position].mISHA
 
-        holder.prayerBasedText.text = prayerMethods.methodBased["EGYPT_SURVEY"].toString()
-
-        holder.methodChange.setOnClickListener {
-            prayerBasedListener.onClick(prayerMethods)
-        }
+//        holder.prayerBasedText.text = prayerMethods.methodBased["EGYPT_SURVEY"].toString()
+//
+//        holder.methodChange.setOnClickListener {
+//            prayerBasedListener.onClick(prayerMethods)
+//        }
 
     }
 
