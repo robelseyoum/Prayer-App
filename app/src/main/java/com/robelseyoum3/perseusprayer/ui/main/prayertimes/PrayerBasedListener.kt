@@ -1,6 +1,5 @@
-package com.robelseyoum3.perseusprayer.ui.adapter.listener
+package com.robelseyoum3.perseusprayer.ui.main.prayertimes
 
-import com.azan.Method
 import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
 
 interface PrayerBasedListener {

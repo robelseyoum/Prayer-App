@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.robelseyoum3.perseusprayer.R
 import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
@@ -61,11 +62,8 @@ class PrayerMethodsDialog : DaggerDialogFragment() {
             val selectedId = myradiogroup.checkedRadioButtonId
             val selectedRadioButton = view.findViewById<RadioButton>(selectedId)
             val selectedMethodValue = selectedRadioButton.text.toString()
-
-            storeSelectedMethodValueToShared(selectedMethodValue)
-
-//            val prayerBaseLoc: String? = sharedPreferences.getString(PreferenceKeys.METHOD_CALCULATION, null)
-//            Log.d("ValueFromSharedClick_", prayerBaseLoc)
+//            storeSelectedMethodValueToShared(selectedMethodValue)
+            mainViewModel.setPrayerMethod(selectedMethodValue)
             dismiss()
         }
 

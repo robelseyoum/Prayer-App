@@ -48,6 +48,8 @@ class MainActivity : BaseActivity() {
             ViewModelProvider(this, providerFactory).get(MainViewModel::class.java)
         }?: throw Exception("Invalid activity")
 
+        viewModel.initPrayerMethodModel()
+
         setupActionBar()
         mFusedLocationClient  = LocationServices.getFusedLocationProviderClient(this)
 

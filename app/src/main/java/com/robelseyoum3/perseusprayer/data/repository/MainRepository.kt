@@ -32,7 +32,7 @@ class MainRepository @Inject constructor(
 
     var job: CompletableJob? = null
 
-     fun getPrayersTimes(_coordination: MutableMap<String, Double>, methodType: String): LiveData<Resource<PrayerTimes>> {
+     fun getPrayersTimes(_coordination: MutableMap<String, Double>, methodType: String?): LiveData<Resource<PrayerTimes>> {
         job = Job()
 
 
@@ -47,10 +47,6 @@ class MainRepository @Inject constructor(
         var prayerBasedMethod = checkPrayerBased(methodType)
 
          //create default method of calculation
-        if(prayerBasedMethod == Method.NONE) {
-            prayerBasedMethod = Method.KARACHI_HANAF
-        }
-
         val azan = Azan(location, prayerBasedMethod)
         val prayerTimes = azan.getPrayerTimes(today)
         val imsaak = azan.getImsaak(today)
@@ -88,6 +84,7 @@ class MainRepository @Inject constructor(
                                         prayerTimes.ishaa().toString()
                                     )
                                 )
+
                                 withContext(IO) {
                                     //don't care about result, Just insert if it doesn't exist b/c foreign key relationship
                                     prayerTimesDao.insertOnIgnore(
@@ -107,7 +104,7 @@ class MainRepository @Inject constructor(
                                         )
                                     )
                                     //insert method of calculation
-                                    saveMethodOfCalculationToDatabase()
+                                    //saveMethodOfCalculationToDatabase()
                                 }
                             }
 
@@ -121,15 +118,15 @@ class MainRepository @Inject constructor(
 
 
 
-    private fun saveMethodOfCalculationToDatabase() {
+     fun saveMethodOfCalculationToDatabase() {
         val prayerMethods = PrayerMethods(
             mutableMapOf(
-                ("EGYPT_SURVEY" to "Egyptian General Authority of Survey" ),
-                ("FIXED_ISHAA" to "Fixed Ishaa Angle Interval"),
-                ("KARACHI_HANAF" to "University of Islamic Sciences, Karachi (Hanafi)"),
-                ("MUSLIM_LEAGUE" to "Egyptian General Authority of Survey" ),
-                ("NORTH_AMERICA" to "Islamic Society of North America"),
-                ("UMM_ALQURRA" to "Om Al-Qurra University" )
+                ("EGYPT_SURVEY" to "Egyptian General Authority of Survey" )
+//                ("ç" to "Fixed Ishaa Angle Interval"),
+//                ("KARACHI_HANAF" to "University of Islamic Sciences, Karachi (Hanafi)"),
+//                ("MUSLIM_LEAGUE" to "Egyptian General Authority of Survey" ),
+//                ("NORTH_AMERICA" to "Islamic Society of North America"),
+//                ("UMM_ALQURRA" to "Om Al-Qurra University" )
             )
         )
         prayerMethodsDao.insertOnIgnore(prayerMethods)

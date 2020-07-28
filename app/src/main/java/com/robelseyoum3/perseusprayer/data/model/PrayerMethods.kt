@@ -9,10 +9,10 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class PrayerMethods(
 
-
     @TypeConverters(MapTypeConverter::class)
     @ColumnInfo(name = "methodBased")
-    val methodBased: MutableMap<String, String>
+    val methodBased:
+    MutableMap<String, String>
 
 ) : Parcelable {
 
