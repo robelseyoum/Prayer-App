@@ -1,71 +1,69 @@
 package com.robelseyoum3.perseusprayer.ui.main
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.robelseyoum3.perseusprayer.data.model.Latlong
 import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.data.persistence.PrayerMethodsDao
 import com.robelseyoum3.perseusprayer.data.repository.MainRepository
 import com.robelseyoum3.perseusprayer.utils.PreferenceKeys
 import com.robelseyoum3.perseusprayer.utils.Resource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.ClassCastException
 import javax.inject.Inject
 
-class MainViewModel  @Inject constructor(val mainRepository: MainRepository, val sharedPreferences: SharedPreferences, val prayerMethodsDao: PrayerMethodsDao) : ViewModel()  {
+class MainViewModel  @Inject constructor(val mainRepository: MainRepository, val prayerMethodsDao: PrayerMethodsDao) : ViewModel()  {
 
-    var _coordination: MutableLiveData<MutableMap<String, Double>> = MutableLiveData()
+    var _coordination: MutableLiveData<Latlong> = MutableLiveData()
     var _prayerMethod: MutableLiveData<String> = MutableLiveData()
+    var _loading: MutableLiveData<Boolean> = MutableLiveData()
 
+    val _prayer: LiveData<Resource<PrayerTimes>> = mainRepository._repoPrayerTime
 
-    val _prayer: LiveData<Resource<PrayerTimes>> = Transformations
-        .switchMap(_coordination){
-            mainRepository.getPrayersTimes(it,_prayerMethod.value)
-        }
+    fun getPrayerTimes(){
+        mainRepository.getPrayersTimes(_coordination.value!!, _prayerMethod.value)
+    }
 
-    fun setLocationCoordination(latitude: String, longitude: String) {
-        val update_lat_long = mutableMapOf(("latitude" to latitude.toDouble()),("longitude" to longitude.toDouble()))
-        if(_coordination.value == update_lat_long){
-            return
-        }
-        _coordination.value = update_lat_long
+    fun setLocationCoordination(latitude: Double, longitude: Double) {
+        _coordination.value = Latlong(latitude, longitude)
+        toggleLoading(false)
     }
 
     fun setPrayerMethod(prayerMethod: String) {
         _prayerMethod.value = prayerMethod
     }
 
-    /**
-    initialize() {
-
-    if PrayerMethod is in Database {
-    fetch the prayer method from db and set it to prayerMethod in viewModel
-    } else {
-    set the default prayer method in room db
-    set the prayerMethod in viewModel
+    fun toggleLoading(loading: Boolean){
+        _loading.value = loading
     }
-    }
-     */
 
     fun initPrayerMethodModel(){
+        val prayerMethodKey =  "KARACHI_HANAF"
 
-        val methodOfPrayer = mutableMapOf("KARACHI_HANAF" to "University of Islamic Sciences, Karachi (Hanafi)")
-        val result = prayerMethodsDao.selectAllPrayerMethod()
+        CoroutineScope(IO).launch {
 
-        if(result.methodBased.isEmpty()){
-            mainRepository.saveMethodOfCalculationToDatabase()
-        }else {
-//            prayerMethodsDao.insertAndReplace()
+            val result = prayerMethodsDao.selectAllPrayerMethod()
+
+            withContext(Main){
+
+                if (result == null) {
+                    //add default prayer method
+                    mainRepository.saveMethodOfCalculationToDatabase(prayerMethodKey)
+                    _prayerMethod.value = prayerMethodKey
+                } else {
+                    _prayerMethod.value = result.methodBased["prayerMethod"]
+                }
+
+            }
         }
-
-
-
-
-
-
-
     }
 
     fun cancelActiveJobs(){

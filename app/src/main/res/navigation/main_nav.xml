@@ -25,6 +25,9 @@
         <argument
             android:name="calcMethods"
             app:argType="com.robelseyoum3.perseusprayer.data.model.PrayerMethods" />
+        <action
+            android:id="@+id/action_prayerMethodsDialog_to_prayerTimesFragment"
+            app:destination="@id/prayerTimesFragment" />
     </dialog>
 
     <fragment

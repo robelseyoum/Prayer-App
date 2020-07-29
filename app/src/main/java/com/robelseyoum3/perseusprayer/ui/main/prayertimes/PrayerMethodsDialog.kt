@@ -1,5 +1,6 @@
 package com.robelseyoum3.perseusprayer.ui.main.prayertimes
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -22,23 +23,18 @@ import com.robelseyoum3.perseusprayer.utils.PreferenceKeys
 import com.robelseyoum3.perseusprayer.viewmodel.ViewModelProviderFactory
 import dagger.android.support.DaggerDialogFragment
 import kotlinx.android.synthetic.main.dialog_fragment.*
+import java.lang.ClassCastException
 import java.lang.Exception
 import javax.inject.Inject
 
 class PrayerMethodsDialog : DaggerDialogFragment() {
 
-    private lateinit var prayerMethods: PrayerMethods
-
-    @Inject
-    lateinit var sharedPrefsEditor: SharedPreferences.Editor
-
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
-
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
 
     lateinit var mainViewModel: MainViewModel
+
+    lateinit var prayerBasedSelected: PrayerBasedSelected
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,20 +46,22 @@ class PrayerMethodsDialog : DaggerDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        prayerMethods  = arguments!!.getParcelable<PrayerMethods>("calc_method") as PrayerMethods
 
         mainViewModel = activity?.run { ViewModelProvider(activity!!, providerFactory).get(MainViewModel::class.java)
-        }?: throw Exception("Invalid activity")
+        }?: throw Exception("Invalid activity") as Throwable
 
-
-        displayPrayMethodName(prayerMethods)
 
         submit_button.setOnClickListener {
             val selectedId = myradiogroup.checkedRadioButtonId
             val selectedRadioButton = view.findViewById<RadioButton>(selectedId)
-            val selectedMethodValue = selectedRadioButton.text.toString()
-//            storeSelectedMethodValueToShared(selectedMethodValue)
-            mainViewModel.setPrayerMethod(selectedMethodValue)
+            val selectedMethodValue = selectedRadioButton?.text?.toString()
+
+            if (selectedMethodValue != null) {
+                    setSelectedPrayerMethod(selectedMethodValue)
+            } else{
+                Log.d("selectedMethodValueNull","option is not selected")
+            }
+
             dismiss()
         }
 
@@ -72,35 +70,38 @@ class PrayerMethodsDialog : DaggerDialogFragment() {
         }
     }
 
-    private fun storeSelectedMethodValueToShared(selectedMethodValue: String) {
-        Log.d("MethodValueToShared", selectedMethodValue)
+    private fun setSelectedPrayerMethod(selectedMethodValue: String) {
+        Log.d("setSelectedPrayerMethod", selectedMethodValue)
         when(selectedMethodValue) {
-            EGYPT_SURVEY -> storeValue("EGYPT_SURVEY")
-            FIXED_ISHAA -> storeValue("FIXED_ISHAA")
-            KARACHI_HANAF -> storeValue("KARACHI_HANAF")
-            MUSLIM_LEAGUE -> storeValue("MUSLIM_LEAGUE")
-            NORTH_AMERICA -> storeValue("NORTH_AMERICA")
-            UMM_ALQURRA -> storeValue("UMM_ALQURRA")
+            EGYPT_SURVEY -> setPrayerMethodsValue("EGYPT_SURVEY")
+            FIXED_ISHAA -> setPrayerMethodsValue("FIXED_ISHAA")
+            KARACHI_HANAF -> setPrayerMethodsValue("KARACHI_HANAF")
+            MUSLIM_LEAGUE -> setPrayerMethodsValue("MUSLIM_LEAGUE")
+            NORTH_AMERICA -> setPrayerMethodsValue("NORTH_AMERICA")
+            UMM_ALQURRA -> setPrayerMethodsValue("UMM_ALQURRA")
         }
     }
 
-    private fun storeValue(selectedMethodKey: String) {
-        Log.d("storeValue", selectedMethodKey)
-        sharedPrefsEditor.putString(PreferenceKeys.METHOD_CALCULATION, selectedMethodKey)
-        sharedPrefsEditor.apply()
+    private fun setPrayerMethodsValue(selectedMethodKey: String) {
+        Log.d("setPrayerMethodsValue", selectedMethodKey)
+        mainViewModel.setPrayerMethod(selectedMethodKey)
     }
 
-    private fun displayPrayMethodName(prayerMethods: PrayerMethods?) {
 
-        radio_egypt_survey.text = prayerMethods!!.methodBased["EGYPT_SURVEY"]
-        Log.d("displayPrayMethodName", " ${prayerMethods.methodBased["NORTH_AMERICA"]}")
 
-        radio_fixed_ishaa.text = prayerMethods.methodBased["FIXED_ISHAA"]
-        radio_karachi_hanaf.text = prayerMethods.methodBased["KARACHI_HANAF"]
-        radio_muslim_league.text = prayerMethods.methodBased["MUSLIM_LEAGUE"]
-        radio_north_america.text = prayerMethods.methodBased["NORTH_AMERICA"]
-        radio_umm_alqurra.text = prayerMethods.methodBased["UMM_ALQURRA"]
+    interface PrayerBasedSelected {
+        fun sendPrayerBasedKey(prayerMethods: String)
     }
+
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        try {
+//            prayerBasedSelected =
+//        } catch (e: ClassCastException) {
+//            Log.e("PrayerMethodsDialog", "$context must implement PrayerBasedSelected..")
+//        }
+//
+//    }
 
 
 }

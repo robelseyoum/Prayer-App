@@ -16,20 +16,13 @@ class MainModule {
     @Provides
     fun provideMainRepository(
         prayerTimesDao: PrayerTimesDao,
-        prayerMethodsDao: PrayerMethodsDao,
-        sharedPreferences: SharedPreferences,
-        sharedPrefsEditor: SharedPreferences.Editor
+        prayerMethodsDao: PrayerMethodsDao
     ): MainRepository{
         return MainRepository(
             prayerTimesDao,
-            prayerMethodsDao,
-            sharedPreferences,
-            sharedPrefsEditor
+            prayerMethodsDao
         )
     }
-
-
-
 
 
 }

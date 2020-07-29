@@ -9,10 +9,24 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.azan.Method
 import com.robelseyoum3.perseusprayer.R
 import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.ui.adapter.PrayerTimesAdapter
+import com.robelseyoum3.perseusprayer.utils.Constants
+import com.robelseyoum3.perseusprayer.utils.Constants.Companion.EGYPT_SURVEY
+import com.robelseyoum3.perseusprayer.utils.Constants.Companion.FIXED_ISHAA
+import com.robelseyoum3.perseusprayer.utils.Constants.Companion.KARACHI_HANAF
+import com.robelseyoum3.perseusprayer.utils.Constants.Companion.MUSLIM_LEAGUE
+import com.robelseyoum3.perseusprayer.utils.Constants.Companion.NORTH_AMERICA
+import com.robelseyoum3.perseusprayer.utils.Constants.Companion.UMM_ALQURRA
+import com.robelseyoum3.perseusprayer.utils.Constants.Companion._EGYPT_SURVEY
+import com.robelseyoum3.perseusprayer.utils.Constants.Companion._FIXED_ISHAA
+import com.robelseyoum3.perseusprayer.utils.Constants.Companion._KARACHI_HANAF
+import com.robelseyoum3.perseusprayer.utils.Constants.Companion._MUSLIM_LEAGUE
+import com.robelseyoum3.perseusprayer.utils.Constants.Companion._NORTH_AMERICA
+import com.robelseyoum3.perseusprayer.utils.Constants.Companion._UMM_ALQURRA
 import com.robelseyoum3.perseusprayer.utils.PreferenceKeys
 import com.robelseyoum3.perseusprayer.utils.Resource
 import kotlinx.android.synthetic.main.prayertimes_fragment.*
@@ -21,8 +35,6 @@ import javax.inject.Inject
 class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     lateinit var prayerTimesAdapter: PrayerTimesAdapter
-    lateinit var prayerMethods: PrayerMethods
-
     @Inject
     lateinit var sharedPrefsEditor: SharedPreferences.Editor
 
@@ -41,23 +53,25 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d(TAG, "PrayerTimesFragment: ${mainViewModel.hashCode()}")
-        subscribePrayerMethods()
+
+        setClickListenerPrayerMethods()
         setupRecyclerView()
-        subscribePrayerTimes()
+        observePrayerTimes()
 
-        val sharedValue = sharedPreferences.getString(PreferenceKeys.METHOD_CALCULATION, "Roba_Shared")
-
-        //FIXED_ISHAA
-        Log.d("getPrayersTimes_pf", sharedValue)
     }
 
-    private fun subscribePrayerMethods() {
+    private fun observePrayerTimes() {
+        mainViewModel._loading.observe(this, Observer { isLoading ->
+            if(!isLoading){
+                mainViewModel.getPrayerTimes()
+                subscribeObserver()
+            }
+        })
+    }
+
+    private fun setClickListenerPrayerMethods() {
         change_prayer_based_text.setOnClickListener {
-                        val prayerMethodsDialog = PrayerMethodsDialog()
-            val arguments = Bundle()
-            arguments.putParcelable("calc_method", prayerMethods)
-            prayerMethodsDialog.arguments = arguments
-            findNavController().navigate(R.id.prayerMethodsDialog, arguments)
+            findNavController().navigate(R.id.prayerMethodsDialog)
         }
     }
 
@@ -68,8 +82,7 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
         rvTimes.adapter = prayerTimesAdapter
     }
 
-    private fun subscribePrayerTimes() {
-        Log.d(TAG, "PrayerTimesFragment: $prayerMethods")
+    private fun subscribeObserver() {
 
         mainViewModel._prayer.observe(this, Observer { prayerData ->
 
@@ -84,6 +97,25 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
             }
         })
 
+        mainViewModel._prayerMethod.observe(this, Observer {
+            it?.let {
+                change_prayer_based_text.text = "Based on : ${checkPrayerBased(it)}"
+                mainViewModel.getPrayerTimes()
+            }
+        })
+
+    }
+
+    private fun checkPrayerBased(methodType: String?) : String {
+        return when (methodType) {
+            _EGYPT_SURVEY -> EGYPT_SURVEY
+            _FIXED_ISHAA -> FIXED_ISHAA
+            _KARACHI_HANAF -> KARACHI_HANAF
+            _MUSLIM_LEAGUE -> MUSLIM_LEAGUE
+            _NORTH_AMERICA -> NORTH_AMERICA
+            _UMM_ALQURRA -> UMM_ALQURRA
+            else -> "University of Islamic Sciences, Karachi (Hanafi)"
+        }
     }
 
     private fun setPrayerTimesFields(prayerTimes: PrayerTimes) {
