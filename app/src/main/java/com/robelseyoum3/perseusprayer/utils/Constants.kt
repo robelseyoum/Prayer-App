@@ -22,5 +22,16 @@ class Constants {
         const val  _UMM_ALQURRA = "UMM_ALQURRA"
 
 
+        /**
+         * FOR MULTIPLE VIEW TYPE
+         */
+        const val TYPE_ASARTIME = 1
+        const val TYPE_DHUHRTIME = 2
+        const val TYPE_FAJARTIME = 3
+        const val TYPE_ISHAATIME = 4
+        const val TYPE_MAGHRIBTIME = 5
+        const val TYPE_SUNRISETIME = 6
+
+
     }
 }
