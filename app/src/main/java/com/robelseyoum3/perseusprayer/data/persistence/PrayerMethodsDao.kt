@@ -1,5 +1,6 @@
 package com.robelseyoum3.perseusprayer.data.persistence
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -19,5 +20,11 @@ interface PrayerMethodsDao {
 
     @Query("UPDATE PRAYER_METHODS SET methodBased =:methodBased WHERE pk=:pk")
     fun updatePrayerMethods(pk:Int, methodBased: String)
+
+    @Query("SELECT * from prayer_methods")
+    fun selectAllPrayerMethod() : PrayerMethods
+
+    @Query("DELETE from prayer_methods")
+    fun deleteAllPrayerMethod()
 
 }

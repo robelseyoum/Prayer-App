@@ -23,6 +23,9 @@ import com.robelseyoum3.perseusprayer.R
 import com.robelseyoum3.perseusprayer.ui.BaseActivity
 import com.robelseyoum3.perseusprayer.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -40,6 +43,7 @@ class MainActivity : BaseActivity() {
 
     private lateinit var currentDate: String
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -52,24 +56,27 @@ class MainActivity : BaseActivity() {
         mFusedLocationClient  = LocationServices.getFusedLocationProviderClient(this)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
-
         val navController =  findNavController(R.id.main_nav_host_fragment)
-
         //For app bar title for each fragment
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.prayerTimesFragment, R.id.qiblaFragment))
-
         setupActionBarWithNavController(navController, appBarConfiguration)
-
         bottomNavigationView.setupWithNavController(navController)
 
+        initPrayerMethod()
+
+        viewModel.toggleLoading(true)
         getLastLocation()
+    }
+
+    fun initPrayerMethod() {
+            viewModel.initPrayerMethodModel()
     }
 
     private fun setupActionBar(){
         setSupportActionBar(tool_bar)
     }
 
-    override fun setLocationCoordination(latitude: String, longitude: String) {
+    override fun setLocationCoordination(latitude: Double, longitude: Double) {
         //set the coordination
         viewModel.setLocationCoordination(latitude, longitude)
     }
@@ -88,8 +95,8 @@ class MainActivity : BaseActivity() {
                     if (location == null) {
                         requestNewLocationData()
                     } else {
-                        val latitude = location.latitude.toString()
-                        val longitude = location.longitude.toString()
+                        val latitude = location.latitude
+                        val longitude = location.longitude
                         setLocationCoordination(latitude, longitude)
                     }
                 }
