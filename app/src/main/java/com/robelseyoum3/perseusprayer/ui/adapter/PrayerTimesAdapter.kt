@@ -29,19 +29,25 @@ class PrayerTimesAdapter constructor(val prayerTimes: MutableList<PrayerTimes>)
         }
     }
 
-
     override fun getItemCount(): Int = prayerTimes.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(getItemViewType(position)){
-            TYPE_ASARTIME -> holder.
+            TYPE_ASARTIME -> (holder as AsarTiimeViewHolder).bind(prayerTimes[position])
+            TYPE_DHUHRTIME -> (holder as DhuhrTimeViewHolder).bind(prayerTimes[position])
+            TYPE_FAJARTIME -> (holder as FajarTimeViewHolder).bind(prayerTimes[position])
+            TYPE_ISHAATIME -> (holder as IshaaTimeViewHolder).bind(prayerTimes[position])
+            TYPE_MAGHRIBTIME -> (holder as MaghribTimeViewHolder).bind(prayerTimes[position])
+            TYPE_SUNRISETIME -> (holder as SunriseTimeViewHolder).bind(prayerTimes[position])
         }
     }
 
 
 
     override fun getItemViewType(position: Int): Int {
-        
+        return when(position){
+            prayerTimes[position].->  TYPE_ASARTIME
+        }
     }
 
 
