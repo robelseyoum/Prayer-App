@@ -36,7 +36,6 @@ class MainRepository @Inject constructor(
      fun getPrayersTimes(_coordination: Latlong, methodType: String?) {
         job = Job()
 
-
         val today = SimpleDate(GregorianCalendar())
         val location = Location(
             _coordination.latitude ?: 0.0,
@@ -45,13 +44,12 @@ class MainRepository @Inject constructor(
             0
         )
 
-        var prayerBasedMethod = checkPrayerBased(methodType)
+        val prayerBasedMethod = checkPrayerBased(methodType)
 
          //create default method of calculation
         val azan = Azan(location, prayerBasedMethod)
         val prayerTimes = azan.getPrayerTimes(today)
         val imsaak = azan.getImsaak(today)
-
 
 
         if(_repoPrayerTime.value?.data == null){
@@ -111,8 +109,6 @@ class MainRepository @Inject constructor(
     }
 
 
-
-
      fun saveMethodOfCalculationToDatabase(params: String) {
          job = Job()
 
@@ -124,30 +120,6 @@ class MainRepository @Inject constructor(
              theJob.complete()
          }
     }
-
-    //store the method into shared preference for methodsd
-//    private fun saveMethodOfCalculationToPrefs(prayerMethods: PrayerMethods) {
-//        prayerMethods.methodBased?.forEach { (key, value) ->
-//            sharedPrefsEditor.putString(key, value)
-//            sharedPrefsEditor.apply()
-//        }
-//    }
-
-
-
-
-//    private fun checkPrayerBased(methodType: PrayerMethods) : Method {
-//
-//        return when (methodType) {
-//            methodType["EGYPT_SURVEY"] -> { Method.EGYPT_SURVEY }
-//            methodType["FIXED_ISHAA"] -> Method.FIXED_ISHAA
-//            methodType["KARACHI_HANAF"] -> Method.KARACHI_HANAF
-//            methodType["MUSLIM_LEAGUE"] -> Method.MUSLIM_LEAGUE
-//            methodType["NORTH_AMERICA"] -> Method.NORTH_AMERICA
-//            methodType["UMM_ALQURRA"] -> Method.UMM_ALQURRA
-//            else -> Method.NONE
-//        }
-//    }
 
     private fun checkPrayerBased(methodType: String?) : Method {
         return when (methodType) {

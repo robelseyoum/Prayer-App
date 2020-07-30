@@ -13,8 +13,5 @@ class PrayerTimesViewHolder(item: View): RecyclerView.ViewHolder(item) {
     val asarTime: TextView = item.asar_time
     val maghribTime: TextView = item.maghrib_time
     val ishaTime: TextView = item.isha_time
-//    val methodChange:TextView = item.change_based_text
-//    val prayerBasedText:TextView = item.prayer_based_text
-
 
 }

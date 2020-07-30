@@ -51,7 +51,6 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         Log.d(TAG, "PrayerTimesFragment: ${mainViewModel.hashCode()}")
 
         setClickListenerPrayerMethods()
@@ -146,7 +145,6 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
         super.onDestroy()
         mainViewModel.cancelActiveJobs()
     }
-
 
 
 }

@@ -49,7 +49,7 @@ class MainViewModel  @Inject constructor(val mainRepository: MainRepository, val
         val prayerMethodKey =  "KARACHI_HANAF"
 
         CoroutineScope(IO).launch {
-
+//            prayerMethodsDao.deleteAllPrayerMethod()
             val result = prayerMethodsDao.selectAllPrayerMethod()
 
             withContext(Main){

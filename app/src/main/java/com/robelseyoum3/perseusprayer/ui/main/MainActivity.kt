@@ -52,21 +52,18 @@ class MainActivity : BaseActivity() {
             ViewModelProvider(this, providerFactory).get(MainViewModel::class.java)
         }?: throw Exception("Invalid activity")
 
-        initPrayerMethod()
-
         setupActionBar()
         mFusedLocationClient  = LocationServices.getFusedLocationProviderClient(this)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
-
         val navController =  findNavController(R.id.main_nav_host_fragment)
-
         //For app bar title for each fragment
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.prayerTimesFragment, R.id.qiblaFragment))
-
         setupActionBarWithNavController(navController, appBarConfiguration)
-
         bottomNavigationView.setupWithNavController(navController)
+
+        initPrayerMethod()
+
         viewModel.toggleLoading(true)
         getLastLocation()
     }

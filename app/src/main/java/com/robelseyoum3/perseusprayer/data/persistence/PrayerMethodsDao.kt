@@ -24,4 +24,7 @@ interface PrayerMethodsDao {
     @Query("SELECT * from prayer_methods")
     fun selectAllPrayerMethod() : PrayerMethods
 
+    @Query("DELETE from prayer_methods")
+    fun deleteAllPrayerMethod()
+
 }
