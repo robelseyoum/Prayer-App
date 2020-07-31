@@ -14,4 +14,15 @@ class PrayerTimesViewHolder(item: View): RecyclerView.ViewHolder(item) {
     val maghribTime: TextView = item.maghrib_time
     val ishaTime: TextView = item.isha_time
 
+    /*
+
+    val asarTimeline: ImageView = item.circle_line_timeline_asar
+
+    fun bind(prayerTimes: PrayerTimes) {
+        itemView.asar_time.text = prayerTimes.mAsr.toString()
+        //asarTimeline.setImageDrawable(Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID R.drawable.pointer)
+        Log.d("AsarTiimeViewHolder", "$prayerTimes.mAsr")
+    }
+     */
+
 }

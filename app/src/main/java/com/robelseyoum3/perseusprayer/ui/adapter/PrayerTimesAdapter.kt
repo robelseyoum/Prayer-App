@@ -2,6 +2,7 @@ package com.robelseyoum3.perseusprayer.ui.adapter
 
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.robelseyoum3.perseusprayer.R
@@ -20,50 +21,70 @@ class PrayerTimesAdapter constructor(val prayerTimes: MutableList<PrayerTimes>)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         return when (viewType) {
-            TYPE_ASARTIME -> AsarTiimeViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                    R.layout.asar_time,
-                    parent,
-                    false
+
+            TYPE_ASARTIME -> {
+                AsarTiimeViewHolder(
+                    LayoutInflater.from(parent.context).inflate(
+                        R.layout.asar_time,
+                        parent,
+                        false
+                    )
                 )
-            )
-            TYPE_DHUHRTIME -> DhuhrTimeViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                    R.layout.dhuhr_time,
-                    parent,
-                    false
+            }
+
+            TYPE_DHUHRTIME -> {
+                DhuhrTimeViewHolder(
+                    LayoutInflater.from(parent.context).inflate(
+                        R.layout.dhuhr_time,
+                        parent,
+                        false
+                    )
                 )
-            )
-            TYPE_FAJARTIME -> FajarTimeViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                    R.layout.fajar_time,
-                    parent,
-                    false
+            }
+
+            TYPE_FAJARTIME -> {
+                FajarTimeViewHolder(
+                    LayoutInflater.from(parent.context).inflate(
+                        R.layout.fajar_time,
+                        parent,
+                        false
+                    )
                 )
-            )
-            TYPE_ISHAATIME -> IshaaTimeViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                    R.layout.ishaa_time,
-                    parent,
-                    false
+            }
+
+            TYPE_ISHAATIME -> {
+                IshaaTimeViewHolder(
+                    LayoutInflater.from(parent.context).inflate(
+                        R.layout.ishaa_time,
+                        parent,
+                        false
+                    )
                 )
-            )
-            TYPE_MAGHRIBTIME -> IshaaTimeViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                    R.layout.maghrib_time,
-                    parent,
-                    false
+            }
+
+            TYPE_MAGHRIBTIME -> {
+                MaghribTimeViewHolder(
+                    LayoutInflater.from(parent.context).inflate(
+                        R.layout.maghrib_time,
+                        parent,
+                        false
+                    )
                 )
-            )
-            else -> IshaaTimeViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                    R.layout.sunrise_time,
-                    parent,
-                    false
+            }
+
+            else -> {
+                SunriseTimeViewHolder(
+                    LayoutInflater.from(parent.context).inflate(
+                        R.layout.sunrise_time,
+                        parent,
+                        false
+                    )
                 )
-            )
+            }
         }
+
     }
 
     override fun getItemCount(): Int = prayerTimes.size
@@ -82,31 +103,28 @@ class PrayerTimesAdapter constructor(val prayerTimes: MutableList<PrayerTimes>)
 
     override fun getItemViewType(position: Int): Int {
 
-        var intViewType: Int = 0
-        when {
+        return  when {
             TextUtils.isEmpty(prayerTimes[position].mAsr) -> {
-                intViewType = TYPE_ASARTIME
+               TYPE_ASARTIME
             }
             TextUtils.isEmpty(prayerTimes[position].mZuhr) -> {
-                intViewType =  TYPE_DHUHRTIME
+                TYPE_DHUHRTIME
             }
             TextUtils.isEmpty(prayerTimes[position].mFajr) -> {
-                intViewType = TYPE_DHUHRTIME
+                TYPE_DHUHRTIME
             }
             TextUtils.isEmpty(prayerTimes[position].mZuhr) -> {
-                intViewType =   TYPE_FAJARTIME
+                TYPE_FAJARTIME
             }
             TextUtils.isEmpty(prayerTimes[position].mISHA) -> {
-                intViewType =   TYPE_ISHAATIME
+                TYPE_ISHAATIME
             }
             TextUtils.isEmpty(prayerTimes[position].mMaghrib) -> {
-                intViewType =   TYPE_MAGHRIBTIME
+                TYPE_MAGHRIBTIME
             }
-            TextUtils.isEmpty(prayerTimes[position].mSunrise) -> {
-                intViewType =  TYPE_SUNRISETIME
-            }
+            else -> TYPE_SUNRISETIME
         }
-        return intViewType
+
     }
 
 }
