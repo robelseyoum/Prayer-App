@@ -77,7 +77,7 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     private fun setupRecyclerView() {
         rvTimes.layoutManager = LinearLayoutManager(view?.context)
-        prayerTimesAdapter = PrayerTimesAdapter()
+        prayerTimesAdapter = PrayerTimesAdapter(mutableListOf())
         rvTimes.adapter = prayerTimesAdapter
     }
 
@@ -118,7 +118,8 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
     }
 
     private fun setPrayerTimesFields(prayerTimes: PrayerTimes) {
-            prayerTimesAdapter.data = mutableListOf(prayerTimes)
+            prayerTimesAdapter.prayerTimes.clear()
+            prayerTimesAdapter.prayerTimes.addAll(mutableListOf(prayerTimes))
             prayerTimesAdapter.notifyDataSetChanged()
 
             progress_bar_frg.visibility = View.GONE
