@@ -26,7 +26,7 @@ class QiblaFragment : BaseQiblaFragment() {
 
     private fun subscribeLocationCoordinators() {
         Log.d(TAG, "subscribeLocationCoordinators")
-        mainViewModel._coordination.observe(this, Observer {
+        mainViewModel.latlng.observe(this, Observer {
             Log.d(TAG, "Latitude ${it.latitude}")
             Log.d(TAG, "Longitude ${it.longitude}")
         })

@@ -7,15 +7,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.robelseyoum3.perseusprayer.R
+import com.robelseyoum3.perseusprayer.data.model.AzanTime
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.ui.components.TimelineView
 import kotlinx.android.synthetic.main.item_prayer_time.view.*
 
 class PrayerTimesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val list = mutableListOf<PrayerTimes>()
+    private val list = mutableListOf<AzanTime>()
 
-    var data: List<PrayerTimes>
+    var data: List<AzanTime>
         get() = list.toList()
         set(value) {
             list.clear()
@@ -24,21 +25,71 @@ class PrayerTimesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return PrayerTimeVH(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_prayer_time,
-                parent,
-                false
+
+        if(viewType == TYPE_PRAYER_TIME){
+            return PrayerTimeVH(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_prayer_time,
+                    parent,
+                    false
+                )
             )
-        )
+        } else {
+            return SunRiseTimeVH(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_sunrise_time,
+                    parent,
+                    false
+                )
+            )
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
             TYPE_PRAYER_TIME -> updatePrayerTime(holder as PrayerTimeVH, position)
-            TYPE_SUNRISE -> (holder as SunRiseTimeVH).updateView(list[position])
+            TYPE_SUNRISE -> updateSunriseTime(holder as SunRiseTimeVH, position)
         }
     }
+
+    private fun isInTheRange(azanTime: AzanTime): Boolean {
+        /**
+         * Add all prayers logic as well as sunrise time.
+         */
+        when(azanTime.name.toLowerCase()){
+            "fajar" -> {
+                //fajar>= current time <= sunRiseTime
+                return  true
+            }
+            "isha" -> {
+                //Isha>= current time <= 11:59 pm
+                return  true
+            }
+        }
+
+        return false
+    }
+
+    private fun updateSunriseTime(holder: SunRiseTimeVH, position: Int) {
+        val timeLineView =
+            TimelineView(
+                holder.itemView.context,
+                R.layout.view_time_line
+            )
+        holder.timeLineContainer.addView(timeLineView)
+
+        if(isInTheRange(list[position])){
+
+        }
+
+    }
+
+    override fun getItemViewType(position: Int): Int =
+        if(list[position].type == TYPE_PRAYER_TIME){
+            TYPE_PRAYER_TIME
+        } else {
+            TYPE_SUNRISE
+        }
 
     private fun updatePrayerTime(holder: PrayerTimeVH, position: Int) {
         when (position) {
@@ -46,19 +97,37 @@ class PrayerTimesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val timeLineView = TimelineView(holder.itemView.context, R.layout.view_time_line_top)
                 holder.timeLineContainer.addView(timeLineView)
                 holder.name.text = "Fajar"
-                holder.name.text = "Fajar time"
+                holder.time.text = "Fajar time"
+
+                /**
+                 * if the time is between fajar time and sunrise time.
+                 * fajar>= current time <= sunRiseTime
+                 */
+
+                if(isInTheRange(list[position])) {
+                    timeLineView.toggleColor()
+                }
             }
+
             list.size - 1 -> {
                 val timeLineView = TimelineView(holder.itemView.context, R.layout.view_time_line_bottom)
                 holder.timeLineContainer.addView(timeLineView)
                 holder.name.text = "Isha"
                 holder.name.text = "Isha time"
+
+                if(isInTheRange(list[position])) {
+                    timeLineView.toggleColor()
+                }
             }
             else -> {
                 val timeLineView = TimelineView(holder.itemView.context, R.layout.view_time_line)
                 holder.timeLineContainer.addView(timeLineView)
                 holder.name.text = " -- "
                 holder.name.text = " -- "
+
+                if(isInTheRange(list[position])) {
+                    timeLineView.toggleColor()
+                }
             }
         }
     }
@@ -72,7 +141,7 @@ class PrayerTimesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class SunRiseTimeVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun updateView(item: PrayerTimes) {}
+        val timeLineContainer: LinearLayout = itemView.timelineContainer
     }
 
     companion object {
