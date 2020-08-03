@@ -9,22 +9,9 @@ import androidx.room.TypeConverters
 data class PrayerTimes (
 
     @TypeConverters(ListTypeConverter::class)
-    @ColumnInfo(name = "mDate") var mDate: MutableList<String>,
+    @ColumnInfo(name = "date") var date: String,
 
-    @ColumnInfo(name = "mImsaak") var mImsaak: String?,
-
-    @ColumnInfo(name = "mFajr") var mFajr: String?,
-
-    @ColumnInfo(name = "mSunrise") var mSunrise: String?,
-
-    @ColumnInfo(name = "mZuhr") var mZuhr: String?,
-
-    @ColumnInfo(name = "mAsr") var mAsr: String?,
-
-    @ColumnInfo(name = "mMaghrib") var mMaghrib: String?,
-
-    @ColumnInfo(name = "mISHA") var mISHA: String?
-
+    @ColumnInfo(name = "azanTimes") var azanTimes: MutableList<AzanTime>
 ){
     @PrimaryKey(autoGenerate = true) var id: Int = 0
 

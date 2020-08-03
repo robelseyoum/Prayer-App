@@ -1,13 +1,13 @@
 package com.robelseyoum3.perseusprayer.data.repository
 
-import android.content.SharedPreferences
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.azan.Azan
+import com.azan.AzanTimes
 import com.azan.Method
 import com.azan.astrologicalCalc.Location
 import com.azan.astrologicalCalc.SimpleDate
-import com.robelseyoum3.perseusprayer.data.model.Latlong
+import com.robelseyoum3.perseusprayer.data.model.AzanTime
+import com.robelseyoum3.perseusprayer.data.model.LatLng
 import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.data.persistence.PrayerMethodsDao
@@ -19,109 +19,65 @@ import com.robelseyoum3.perseusprayer.utils.Constants.Companion._MUSLIM_LEAGUE
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion._NORTH_AMERICA
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion._UMM_ALQURRA
 import com.robelseyoum3.perseusprayer.utils.Resource
-import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
-   private val prayerTimesDao: PrayerTimesDao,
-   private val prayerMethodsDao: PrayerMethodsDao) {
+    private val prayerTimesDao: PrayerTimesDao,
+    private val prayerMethodsDao: PrayerMethodsDao
+) {
+    private val currentDate = SimpleDate(GregorianCalendar())
+    var repo: MutableLiveData<Resource<PrayerTimes>> = MutableLiveData()
 
-      var _repoPrayerTime: MutableLiveData<Resource<PrayerTimes>> = MutableLiveData()
-
-    var job: CompletableJob? = null
-
-     fun getPrayersTimes(_coordination: Latlong, methodType: String?) {
-        job = Job()
-
-        val today = SimpleDate(GregorianCalendar())
+    fun getPrayersTimes(_coordination: LatLng, methodType: String?) {
         val location = Location(
-            _coordination.latitude ?: 0.0,
-            _coordination.longitude ?: 0.0,
+            _coordination.latitude,
+            _coordination.longitude,
             2.0,
             0
         )
 
-        val prayerBasedMethod = checkPrayerBased(methodType)
+        val azan = Azan(location, checkPrayerBased(methodType))
+        val azanTimes = azan.getPrayerTimes(currentDate)
+        val imsaak = azan.getImsaak(currentDate)
 
-         //create default method of calculation
-        val azan = Azan(location, prayerBasedMethod)
-        val prayerTimes = azan.getPrayerTimes(today)
-        val imsaak = azan.getImsaak(today)
+        if (repo.value?.data == null) {
+            repo.value = Resource.Loading(null)
+        }
+// add date time format
 
+//        var azanTimeList : List
+//        loop till 5th index
+//        AzanTime(
+//            "Fajar",
+//            "time"
+//        )
 
-        if(_repoPrayerTime.value?.data == null){
-            _repoPrayerTime.value = Resource.Loading(null)
+        val times = PrayerTimes(
+            currentDate.toString(),
+            mutableListOf()
+        )
+
+        repo.value = Resource.Success(times)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            prayerTimesDao.insertOnIgnore(times)
         }
 
-        job?.let { theJob ->
-            CoroutineScope(IO + theJob).launch {
-                withContext(Main){
+    }
 
-                    if(_coordination == null){
-                        _repoPrayerTime.value = Resource.Error("No Prayer Data Found", null)
-                    }else {
-
-                        _repoPrayerTime.value = Resource.Success(
-                            PrayerTimes(
-                                mutableListOf(
-                                    today.day.toString(),
-                                    today.month.toString(),
-                                    today.year.toString()
-                                ),
-                                imsaak.toString(),
-                                prayerTimes.fajr().toString(),
-                                prayerTimes.shuruq().toString(),
-                                prayerTimes.thuhr().toString(),
-                                prayerTimes.assr().toString(),
-                                prayerTimes.maghrib().toString(),
-                                prayerTimes.ishaa().toString()
-                            )
-                        )
-
-                        withContext(IO) {
-                            //don't care about result, Just insert if it doesn't exist b/c foreign key relationship
-                            prayerTimesDao.insertOnIgnore(
-                                PrayerTimes(
-                                    mutableListOf(
-                                        today.day.toString(),
-                                        today.month.toString(),
-                                        today.year.toString()
-                                    ),
-                                    imsaak.toString(),
-                                    prayerTimes.fajr().toString(),
-                                    prayerTimes.shuruq().toString(),
-                                    prayerTimes.thuhr().toString(),
-                                    prayerTimes.assr().toString(),
-                                    prayerTimes.maghrib().toString(),
-                                    prayerTimes.ishaa().toString()
-                                )
-                            )
-                        }
-                    }
-
-                    theJob.complete()
-                }
-            }
+    fun savePrayerMethod(params: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            prayerMethodsDao.insertOnIgnore(
+                PrayerMethods(mutableMapOf(("prayerMethod" to params)))
+            )
         }
     }
 
-
-     fun saveMethodOfCalculationToDatabase(params: String) {
-         job = Job()
-
-         job?.let { theJob ->
-             CoroutineScope(IO + theJob).launch {
-                 val prayerMethods = PrayerMethods(mutableMapOf(("prayerMethod" to params)))
-                 prayerMethodsDao.insertOnIgnore(prayerMethods)
-             }
-             theJob.complete()
-         }
-    }
-
-    private fun checkPrayerBased(methodType: String?) : Method {
+    private fun checkPrayerBased(methodType: String?): Method {
         return when (methodType) {
             _EGYPT_SURVEY -> Method.EGYPT_SURVEY
             _FIXED_ISHAA -> Method.FIXED_ISHAA
@@ -132,9 +88,4 @@ class MainRepository @Inject constructor(
             else -> Method.NONE
         }
     }
-
-    fun cancelJobs(){
-        job?.cancel()
-    }
-
 }

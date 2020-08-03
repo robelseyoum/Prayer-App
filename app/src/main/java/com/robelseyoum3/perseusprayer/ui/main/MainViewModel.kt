@@ -1,79 +1,62 @@
 package com.robelseyoum3.perseusprayer.ui.main
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.*
-import com.robelseyoum3.perseusprayer.data.model.Latlong
-import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
+import com.robelseyoum3.perseusprayer.data.model.LatLng
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.data.persistence.PrayerMethodsDao
 import com.robelseyoum3.perseusprayer.data.repository.MainRepository
-import com.robelseyoum3.perseusprayer.utils.PreferenceKeys
 import com.robelseyoum3.perseusprayer.utils.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.ClassCastException
 import javax.inject.Inject
 
-class MainViewModel  @Inject constructor(val mainRepository: MainRepository, val prayerMethodsDao: PrayerMethodsDao) : ViewModel()  {
+class MainViewModel @Inject constructor(
+    private val mainRepository: MainRepository,
+    private val prayerMethodsDao: PrayerMethodsDao
+) : ViewModel() {
 
-    var _coordination: MutableLiveData<Latlong> = MutableLiveData()
-    var _prayerMethod: MutableLiveData<String> = MutableLiveData()
-    var _loading: MutableLiveData<Boolean> = MutableLiveData()
+    var latLng: MutableLiveData<LatLng> = MutableLiveData()
+    var prayerMethod: MutableLiveData<String> = MutableLiveData()
+    var isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
-    val _prayer: LiveData<Resource<PrayerTimes>> = mainRepository._repoPrayerTime
-
-    fun getPrayerTimes(){
-        mainRepository.getPrayersTimes(_coordination.value!!, _prayerMethod.value)
-    }
-
-    fun setLocationCoordination(latitude: Double, longitude: Double) {
-        _coordination.value = Latlong(latitude, longitude)
-        toggleLoading(false)
-    }
-
-    fun setPrayerMethod(prayerMethod: String) {
-        _prayerMethod.value = prayerMethod
-    }
-
-    fun toggleLoading(loading: Boolean){
-        _loading.value = loading
-    }
-
-    fun initPrayerMethodModel(){
-        val prayerMethodKey =  "KARACHI_HANAF"
-
+    fun initPrayerMethodModel() {
         CoroutineScope(IO).launch {
-//            prayerMethodsDao.deleteAllPrayerMethod()
-            val result = prayerMethodsDao.selectAllPrayerMethod()
+            val method = prayerMethodsDao.selectAllPrayerMethod()
 
-            withContext(Main){
-
-                if (result == null) {
-                    //add default prayer method
-                    mainRepository.saveMethodOfCalculationToDatabase(prayerMethodKey)
-                    _prayerMethod.value = prayerMethodKey
-                } else {
-                    _prayerMethod.value = result.methodBased["prayerMethod"]
+            withContext(Main) {
+                takeIf { method == null }?.apply {
+                    mainRepository.savePrayerMethod(defaultMethod)
+                    prayerMethod.value = defaultMethod
+                }?.run {
+                    prayerMethod.value = method.methodBased["prayerMethod"]
                 }
-
             }
         }
     }
 
-    fun cancelActiveJobs(){
-        mainRepository.cancelJobs()
+    val azanTimes: LiveData<Resource<PrayerTimes>> = mainRepository.repo
+
+    fun getPrayerTimes() {
+        mainRepository.getPrayersTimes(latLng.value!!, prayerMethod.value)
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        cancelActiveJobs()
+    fun setLocationCoordination(latitude: Double, longitude: Double) {
+        latLng.value = LatLng(latitude, longitude)
+        toggleLoading(false)
     }
 
+    fun setPrayerMethod(prayerMethod: String) {
+        this.prayerMethod.value = prayerMethod
+    }
 
+    fun toggleLoading(loading: Boolean) {
+        isLoading.value = loading
+    }
+
+    companion object {
+        const val defaultMethod = "KARACHI_HANAF"
+    }
 }

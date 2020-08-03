@@ -30,10 +30,8 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
-
-
+    //TODO : add this in companion object
     private val PERMISSION_ID = 42
-    //Fused Location Provider API to get users current position.
     lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     @Inject
@@ -48,18 +46,12 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = this?.run {
-            ViewModelProvider(this, providerFactory).get(MainViewModel::class.java)
-        }?: throw Exception("Invalid activity")
+        viewModel = ViewModelProvider(this, providerFactory).get(MainViewModel::class.java)
 
-        setupActionBar()
         mFusedLocationClient  = LocationServices.getFusedLocationProviderClient(this)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
         val navController =  findNavController(R.id.main_nav_host_fragment)
-        //For app bar title for each fragment
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.prayerTimesFragment, R.id.qiblaFragment))
-        setupActionBarWithNavController(navController, appBarConfiguration)
         bottomNavigationView.setupWithNavController(navController)
 
         initPrayerMethod()
@@ -70,10 +62,6 @@ class MainActivity : BaseActivity() {
 
     fun initPrayerMethod() {
             viewModel.initPrayerMethodModel()
-    }
-
-    private fun setupActionBar(){
-        setSupportActionBar(tool_bar)
     }
 
     override fun setLocationCoordination(latitude: Double, longitude: Double) {
