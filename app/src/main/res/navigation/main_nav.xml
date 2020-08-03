@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/prayerTimesFragment"
         android:name="com.robelseyoum3.perseusprayer.ui.main.prayertimes.PrayerTimesFragment"
-        android:label="@string/prayer_time"
         tools:layout="@layout/prayertimes_fragment"
         >
         <action
@@ -20,7 +19,6 @@
     <dialog
         android:id="@+id/prayerMethodsDialog"
         android:name="com.robelseyoum3.perseusprayer.ui.main.prayertimes.PrayerMethodsDialog"
-        android:label="PrayerMethodsDialog"
         tools:layout="@layout/dialog_fragment">
         <argument
             android:name="calcMethods"
@@ -32,6 +30,5 @@
 
     <fragment
         android:id="@+id/qiblaFragment"
-        android:name="com.robelseyoum3.perseusprayer.ui.main.qibla.QiblaFragment"
-        android:label="@string/qibla" />
+        android:name="com.robelseyoum3.perseusprayer.ui.main.qibla.QiblaFragment"/>
 </navigation>

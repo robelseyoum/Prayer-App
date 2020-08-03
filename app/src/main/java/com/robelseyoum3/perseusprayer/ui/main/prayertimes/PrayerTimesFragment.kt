@@ -60,7 +60,7 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
     }
 
     private fun observePrayerTimes() {
-        mainViewModel._loading.observe(this, Observer { isLoading ->
+        mainViewModel.isLoading.observe(this, Observer { isLoading ->
             if(!isLoading){
                 mainViewModel.getPrayerTimes()
                 subscribeObserver()
@@ -83,7 +83,7 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     private fun subscribeObserver() {
 
-        mainViewModel._prayer.observe(this, Observer { prayerData ->
+        mainViewModel.azanTime.observe(this, Observer { prayerData ->
 
             when(prayerData) {
 
@@ -96,7 +96,7 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
             }
         })
 
-        mainViewModel._prayerMethod.observe(this, Observer {
+        mainViewModel.prayerMethod.observe(this, Observer {
             it?.let {
                 change_prayer_based_text.text = "Based on : ${checkPrayerBased(it)}"
                 mainViewModel.getPrayerTimes()
@@ -138,12 +138,5 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
             progress_bar_frg.visibility = View.GONE
             tvMessage.text = message
     }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mainViewModel.cancelActiveJobs()
-    }
-
 
 }

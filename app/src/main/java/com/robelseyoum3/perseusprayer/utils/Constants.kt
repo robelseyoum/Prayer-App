@@ -33,5 +33,8 @@ class Constants {
         const val TYPE_SUNRISETIME = 6
 
 
+        const val  PERMISSION_ID = 42
+
+
     }
 }

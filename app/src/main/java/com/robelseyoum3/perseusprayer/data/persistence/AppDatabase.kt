@@ -18,6 +18,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getPrayerTimesDao(): PrayerTimesDao
 
     companion object {
-        val DATABASE_NAME: String = "app_db"
+        const val DATABASE_NAME: String = "application_database"
     }
 }
