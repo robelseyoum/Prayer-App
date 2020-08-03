@@ -9,12 +9,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.azan.Method
 import com.robelseyoum3.perseusprayer.R
-import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.ui.adapter.PrayerTimesAdapter
-import com.robelseyoum3.perseusprayer.utils.Constants
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion.EGYPT_SURVEY
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion.FIXED_ISHAA
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion.KARACHI_HANAF
@@ -27,7 +24,6 @@ import com.robelseyoum3.perseusprayer.utils.Constants.Companion._KARACHI_HANAF
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion._MUSLIM_LEAGUE
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion._NORTH_AMERICA
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion._UMM_ALQURRA
-import com.robelseyoum3.perseusprayer.utils.PreferenceKeys
 import com.robelseyoum3.perseusprayer.utils.Resource
 import kotlinx.android.synthetic.main.prayertimes_fragment.*
 import javax.inject.Inject
@@ -74,7 +70,6 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
         }
     }
 
-
     private fun setupRecyclerView() {
         rvTimes.layoutManager = LinearLayoutManager(view?.context)
         prayerTimesAdapter = PrayerTimesAdapter()
@@ -118,9 +113,7 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
     }
 
     private fun setPrayerTimesFields(prayerTimes: PrayerTimes) {
-            prayerTimesAdapter.data = mutableListOf(prayerTimes)
-            prayerTimesAdapter.notifyDataSetChanged()
-
+            prayerTimesAdapter.data = prayerTimes.azanTimes
             progress_bar_frg.visibility = View.GONE
             rvTimes.visibility = View.VISIBLE
             llMessageContainer.visibility = View.GONE

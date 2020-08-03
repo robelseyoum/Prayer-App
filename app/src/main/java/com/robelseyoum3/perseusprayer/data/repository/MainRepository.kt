@@ -27,8 +27,8 @@ import java.util.*
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
-   private val prayerTimesDao: PrayerTimesDao,
-   private val prayerMethodsDao: PrayerMethodsDao
+    private val prayerTimesDao: PrayerTimesDao,
+    private val prayerMethodsDao: PrayerMethodsDao
 ) {
     private val currentDate = SimpleDate(GregorianCalendar())
     var repo: MutableLiveData<Resource<PrayerTimes>> = MutableLiveData()
@@ -44,21 +44,21 @@ class MainRepository @Inject constructor(
             0
         )
 
-         //create default method of calculation
+        //create default method of calculation
         val azan = Azan(location, checkPrayerBased(methodType))
-        val prayerTimes = azan.getPrayerTimes(today)
-        val imsaak = azan.getImsaak(today)
+        val azanTimes = azan.getPrayerTimes(currentDate)
+        val imsaak = azan.getImsaak(currentDate)
 
         if (repo.value?.data == null){
             repo.value = Resource.Loading(null)
         }
 
         var azanTime = mutableListOf(
-            AzanTime("Fajar", prayerTimes.fajr().toString(), 0),
-            AzanTime("Zuhar", prayerTimes.thuhr().toString(), 0),
-            AzanTime("Asr", prayerTimes.assr().toString(), 0),
-            AzanTime("Magrib", prayerTimes.maghrib().toString(), 0),
-            AzanTime("Isha", prayerTimes.ishaa().toString(), 0)
+            AzanTime("Fajar", azanTimes.fajr().toString(), 0),
+            AzanTime("Zuhar", azanTimes.thuhr().toString(), 0),
+            AzanTime("Asr", azanTimes.assr().toString(), 0),
+            AzanTime("Magrib", azanTimes.maghrib().toString(), 0),
+            AzanTime("Isha", azanTimes.ishaa().toString(), 0)
         )
 
         val times = PrayerTimes(
@@ -74,12 +74,12 @@ class MainRepository @Inject constructor(
 
     }
 
-     fun saveMethodOfCalculationToDatabase(params: String) {
-         CoroutineScope(IO ).launch {
-             val prayerMethods = PrayerMethods(mutableMapOf(("prayerMethod" to params)))
-             prayerMethodsDao.insertOnIgnore(prayerMethods)
-         }
-     }
+    fun saveMethodOfCalculationToDatabase(params: String) {
+        CoroutineScope(IO ).launch {
+            val prayerMethods = PrayerMethods(mutableMapOf(("prayerMethod" to params)))
+            prayerMethodsDao.insertOnIgnore(prayerMethods)
+        }
+    }
 
     private fun checkPrayerBased(methodType: String?): Method {
         return when (methodType) {
