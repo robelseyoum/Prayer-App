@@ -7,9 +7,11 @@ import androidx.room.TypeConverters
 
 @Entity(tableName = "prayer_times")
 data class PrayerTimes (
-    @ColumnInfo(name = "date") var date: String?,
 
-    @TypeConverters(ListTypeConverter::class)
+    @TypeConverters(DateTimeConverter::class)
+    @ColumnInfo(name = "dateTimes") var dateTimes: MutableList<DateTimes>,
+
+    @TypeConverters(AzanTimeConverter::class)
     @ColumnInfo(name = "azanTimes") var azanTimes: MutableList<AzanTime>
 ){
     @PrimaryKey(autoGenerate = true) var id: Int = 0

@@ -26,6 +26,8 @@ import com.robelseyoum3.perseusprayer.utils.Constants.Companion._NORTH_AMERICA
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion._UMM_ALQURRA
 import com.robelseyoum3.perseusprayer.utils.Resource
 import kotlinx.android.synthetic.main.prayertimes_fragment.*
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class PrayerTimesFragment : BasePrayerTimesFragment() {
@@ -36,6 +38,8 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+
+    val dayMonth: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -117,6 +121,12 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
             progress_bar_frg.visibility = View.GONE
             rvTimes.visibility = View.VISIBLE
             llMessageContainer.visibility = View.GONE
+    }
+
+    private fun currentDateTime() {
+        val date = Calendar.getInstance().time
+        current_date.text = ""
+        current_time.text = ""
     }
 
     private fun displayProgressbar() {

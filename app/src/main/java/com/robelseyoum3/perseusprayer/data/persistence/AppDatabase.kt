@@ -4,13 +4,10 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.robelseyoum3.perseusprayer.data.model.ListTypeConverter
-import com.robelseyoum3.perseusprayer.data.model.MapTypeConverter
-import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
-import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
+import com.robelseyoum3.perseusprayer.data.model.*
 
-@Database(entities = [PrayerMethods::class, PrayerTimes::class], version = 1)
-@TypeConverters(MapTypeConverter::class, ListTypeConverter::class)
+@Database(entities = [PrayerMethods::class, PrayerTimes::class], version = 2)
+@TypeConverters(MapTypeConverter::class, ListTypeConverter::class, AzanTimeConverter::class, DateTimeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getPrayerMethodsDao(): PrayerMethodsDao

@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.robelseyoum3.perseusprayer.R
 import com.robelseyoum3.perseusprayer.data.model.AzanTime
-import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.ui.components.TimelineView
 import kotlinx.android.synthetic.main.item_prayer_time.view.*
 

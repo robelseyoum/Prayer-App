@@ -1,16 +1,11 @@
 package com.robelseyoum3.perseusprayer.data.repository
 
-import android.content.SharedPreferences
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.azan.Azan
 import com.azan.Method
 import com.azan.astrologicalCalc.Location
 import com.azan.astrologicalCalc.SimpleDate
-import com.robelseyoum3.perseusprayer.data.model.AzanTime
-import com.robelseyoum3.perseusprayer.data.model.Latlong
-import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
-import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
+import com.robelseyoum3.perseusprayer.data.model.*
 import com.robelseyoum3.perseusprayer.data.persistence.PrayerMethodsDao
 import com.robelseyoum3.perseusprayer.data.persistence.PrayerTimesDao
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion._EGYPT_SURVEY
@@ -22,7 +17,6 @@ import com.robelseyoum3.perseusprayer.utils.Constants.Companion._UMM_ALQURRA
 import com.robelseyoum3.perseusprayer.utils.Resource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
 import java.util.*
 import javax.inject.Inject
 
@@ -34,9 +28,8 @@ class MainRepository @Inject constructor(
     var repo: MutableLiveData<Resource<PrayerTimes>> = MutableLiveData()
 
 
-    fun getPrayersTimes(_coordination: Latlong, methodType: String?) {
+    fun getPrayersTimes(_coordination: LatLng, methodType: String?) {
 
-        val today = SimpleDate(GregorianCalendar())
         val location = Location(
             _coordination.latitude,
             _coordination.longitude,
@@ -53,16 +46,25 @@ class MainRepository @Inject constructor(
             repo.value = Resource.Loading(null)
         }
 
-        var azanTime = mutableListOf(
+        val dateTime = mutableListOf(
+            DateTimes(
+                currentDate.day.toString(),
+                currentDate.month.toString(),
+                currentDate.year.toString()
+            )
+        )
+
+        val azanTime = mutableListOf(
             AzanTime("Fajar", azanTimes.fajr().toString(), 0),
+            AzanTime("Sunrise", azanTimes.shuruq().toString(), 1),
             AzanTime("Zuhar", azanTimes.thuhr().toString(), 0),
             AzanTime("Asr", azanTimes.assr().toString(), 0),
             AzanTime("Magrib", azanTimes.maghrib().toString(), 0),
-            AzanTime("Isha", azanTimes.ishaa().toString(), 0)
+            AzanTime("Isha", azanTimes.toString(), 0)
         )
 
         val times = PrayerTimes(
-            currentDate.toString(),
+            dateTime,
             azanTime
         )
 
