@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.*
-import com.robelseyoum3.perseusprayer.data.model.Latlong
+import com.robelseyoum3.perseusprayer.data.model.LatLng
 import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.data.persistence.PrayerMethodsDao
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 class MainViewModel  @Inject constructor(val mainRepository: MainRepository, val prayerMethodsDao: PrayerMethodsDao) : ViewModel()  {
 
-    var latlng: MutableLiveData<Latlong> = MutableLiveData()
+    var latlng: MutableLiveData<LatLng> = MutableLiveData()
     var prayerMethod: MutableLiveData<String> = MutableLiveData()
     var isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -49,7 +49,7 @@ class MainViewModel  @Inject constructor(val mainRepository: MainRepository, val
     }
 
     fun setLocationCoordination(latitude: Double, longitude: Double) {
-        latlng.value = Latlong(latitude, longitude)
+        latlng.value = LatLng(latitude, longitude)
         toggleLoading(false)
     }
 
