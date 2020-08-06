@@ -74,7 +74,10 @@ class PrayerTimesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val timeLineView =
             TimelineView(
                 holder.itemView.context,
-                R.layout.view_time_line
+                null,
+                0,
+                R.layout.view_time_line,
+                true
             )
         holder.timeLineContainer.addView(timeLineView)
         holder.time.text = list[position].time
@@ -96,7 +99,7 @@ class PrayerTimesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private fun updatePrayerTime(holder: PrayerTimeVH, position: Int) {
         when (position) {
             0 -> {
-                val timeLineView = TimelineView(holder.itemView.context, R.layout.view_time_line_top)
+                val timeLineView = TimelineView(holder.itemView.context, null, 0, R.layout.view_time_line, true)
                 holder.timeLineContainer.addView(timeLineView)
                 holder.name.text = list[position].name
                 holder.time.text = list[position].time
@@ -112,7 +115,7 @@ class PrayerTimesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
 
             list.size - 1 -> {
-                val timeLineView = TimelineView(holder.itemView.context, R.layout.view_time_line_bottom)
+                val timeLineView = TimelineView(holder.itemView.context, null, 0, R.layout.view_time_line, true)
                 holder.timeLineContainer.addView(timeLineView)
                 holder.name.text = list[position].name
                 holder.time.text = list[position].time
@@ -123,7 +126,7 @@ class PrayerTimesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
 
             else -> {
-                val timeLineView = TimelineView(holder.itemView.context, R.layout.view_time_line)
+                val timeLineView = TimelineView(holder.itemView.context, null, 0, R.layout.view_time_line, true)
                 holder.timeLineContainer.addView(timeLineView)
                 holder.name.text = list[position].name
                 holder.time.text = list[position].time
