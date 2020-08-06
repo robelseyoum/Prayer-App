@@ -1,6 +1,5 @@
 package com.robelseyoum3.perseusprayer.data.persistence
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -17,9 +16,8 @@ interface PrayerMethodsDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)  //id data is already exist ignore it
     fun insertOnIgnore(prayerMethods: PrayerMethods): Long
 
-
-    @Query("UPDATE PRAYER_METHODS SET methodBased =:methodBased WHERE pk=:pk")
-    fun updatePrayerMethods(pk:Int, methodBased: String)
+   @Query("UPDATE prayer_methods SET methodBased =:methodBased")
+    fun updatePrayerMethods(methodBased:  MutableMap<String, String>)
 
     @Query("SELECT * from prayer_methods")
     fun selectAllPrayerMethod() : PrayerMethods

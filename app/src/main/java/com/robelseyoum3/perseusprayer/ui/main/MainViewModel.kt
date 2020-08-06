@@ -55,6 +55,10 @@ class MainViewModel  @Inject constructor(val mainRepository: MainRepository, val
 
     fun setPrayerMethod(prayerMethod: String) {
         this.prayerMethod.value = prayerMethod
+        CoroutineScope(IO).launch{
+            val updatePrayerMethod = mutableMapOf(("prayerMethod" to prayerMethod))
+            prayerMethodsDao.updatePrayerMethods(updatePrayerMethod)
+        }
     }
 
     fun toggleLoading(loading: Boolean){

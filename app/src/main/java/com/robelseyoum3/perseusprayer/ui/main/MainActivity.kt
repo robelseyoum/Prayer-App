@@ -5,6 +5,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -30,7 +33,7 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity()  {
 
     lateinit var mFusedLocationClient: FusedLocationProviderClient
 
@@ -149,8 +152,4 @@ class MainActivity : BaseActivity() {
             LocationManager.NETWORK_PROVIDER
         )
     }
-
-
-
-
 }
