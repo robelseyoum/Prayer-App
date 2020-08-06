@@ -84,6 +84,7 @@ class PrayerMethodsDialog : DaggerDialogFragment() {
     private fun setPrayerMethodsValue(selectedMethodKey: String) {
         Log.d("setPrayerMethodsValue", selectedMethodKey)
         mainViewModel.setPrayerMethod(selectedMethodKey)
+        mainViewModel.getPrayerTimes()
     }
 
 }

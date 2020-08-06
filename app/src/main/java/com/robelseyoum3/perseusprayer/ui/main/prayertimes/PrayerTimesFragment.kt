@@ -70,6 +70,10 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     private fun setClickListenerPrayerMethods() {
         change_prayer_based_text.setOnClickListener {
+//            val prayerMethodsDialog = PrayerMethodsDialog()
+//            val argument = Bundle()
+//            argument.putParcelable("calc_method", mainViewModel._prayerMethod.value)
+//            prayerMethodsDialog.arguments = arguments
             findNavController().navigate(R.id.prayerMethodsDialog)
         }
     }
