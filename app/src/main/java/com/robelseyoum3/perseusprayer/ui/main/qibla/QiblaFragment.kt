@@ -82,6 +82,16 @@ class QiblaFragment : BaseQiblaFragment(), SensorEventListener {
         currentDegree = -degree.toFloat()
     }
 
+    override fun onResume() {
+        super.onResume()
+        sensorManager.registerListener(this,sensor, SensorManager.SENSOR_DELAY_FASTEST)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sensorManager.unregisterListener(this)
+    }
+
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
     }
