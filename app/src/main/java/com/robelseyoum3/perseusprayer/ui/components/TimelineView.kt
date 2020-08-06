@@ -11,10 +11,10 @@ import com.robelseyoum3.perseusprayer.R
 class TimelineView(context: Context?, layout:Int, hiDot: Boolean = false) : ConstraintLayout(context) {
 
     init {
-        val view = LayoutInflater.from(context).inflate(layout, this, true)
+        LayoutInflater.from(context).inflate(layout, this, true)
 
         if(hiDot){
-            view.findViewById<View>(R.id.dot).visibility = View.GONE
+            findViewById<View>(R.id.dot).visibility = View.GONE
         }
 
     }
