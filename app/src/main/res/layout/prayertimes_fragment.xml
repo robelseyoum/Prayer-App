@@ -121,8 +121,8 @@
             <TextView
                 android:id="@+id/change_prayer_based_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
+                android:layout_height="40dp"
+                android:textSize="15sp"
                 android:layout_weight=".9"
                 android:paddingLeft="7dp"
                 android:paddingTop="16dp"

@@ -5,4 +5,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+
+    <ImageView
+        android:id="@+id/prayer_top_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/rectangle_blue"
+        android:src="@drawable/ic_mask_group"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/main_image_dial"
+        android:layout_width="390dp"
+        android:layout_height="390dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/dial" />
+
+    <ImageView
+        android:id="@+id/ic_compass"
+        android:layout_width="30dp"
+        android:layout_height="320dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/hands" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

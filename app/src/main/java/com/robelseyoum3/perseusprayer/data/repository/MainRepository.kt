@@ -27,7 +27,6 @@ class MainRepository @Inject constructor(
     private val currentDate = SimpleDate(GregorianCalendar())
     var repo: MutableLiveData<Resource<PrayerTimes>> = MutableLiveData()
 
-
     fun getPrayersTimes(_coordination: LatLng, methodType: String?) {
 
         val location = Location(
@@ -36,7 +35,6 @@ class MainRepository @Inject constructor(
             2.0,
             0
         )
-
         //create default method of calculation
         val azan = Azan(location, checkPrayerBased(methodType))
         val azanTimes = azan.getPrayerTimes(currentDate)
@@ -60,7 +58,7 @@ class MainRepository @Inject constructor(
             AzanTime("Zuhar", azanTimes.thuhr().toString(), 0),
             AzanTime("Asr", azanTimes.assr().toString(), 0),
             AzanTime("Magrib", azanTimes.maghrib().toString(), 0),
-            AzanTime("Isha", azanTimes.toString(), 0)
+            AzanTime("Isha", azanTimes.ishaa().toString(), 0)
         )
 
         val times = PrayerTimes(
