@@ -26,7 +26,6 @@ import com.robelseyoum3.perseusprayer.utils.Constants.Companion._NORTH_AMERICA
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion._UMM_ALQURRA
 import com.robelseyoum3.perseusprayer.utils.Resource
 import kotlinx.android.synthetic.main.prayertimes_fragment.*
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -61,8 +60,9 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     private fun observePrayerTimes() {
         mainViewModel.isLoading.observe(this, Observer { isLoading ->
-            if(!isLoading){
+            if(!isLoading.data!!){
                 mainViewModel.getPrayerTimes()
+                mainViewModel.addPrayerTimes()
                 subscribeObserver()
             }
         })
@@ -90,12 +90,9 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
 
             when(prayerData) {
 
-                is Resource.Loading -> {  displayProgressbar() }
-
                 is Resource.Success -> {setPrayerTimesFields(prayerData.data!!) }
 
                 is Resource.Error -> { displayMessageContainer(prayerData.message)}
-
             }
         })
 
@@ -122,9 +119,9 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     private fun setPrayerTimesFields(prayerTimes: PrayerTimes) {
             prayerTimesAdapter.data = prayerTimes.azanTimes
-            progress_bar_frg.visibility = View.GONE
+            progress_bar_frg.visibility = View.INVISIBLE
             rvTimes.visibility = View.VISIBLE
-            llMessageContainer.visibility = View.GONE
+            llMessageContainer.visibility = View.INVISIBLE
     }
 
     private fun currentDateTime() {
@@ -133,16 +130,10 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
         current_time.text = ""
     }
 
-    private fun displayProgressbar() {
-        progress_bar_frg.visibility = View.VISIBLE
-        rvTimes.visibility = View.GONE
-        llMessageContainer.visibility = View.GONE
-    }
-
     private fun displayMessageContainer(message: String?) {
             llMessageContainer.visibility = View.VISIBLE
-            rvTimes.visibility = View.GONE
-            progress_bar_frg.visibility = View.GONE
+            rvTimes.visibility = View.INVISIBLE
+            progress_bar_frg.visibility = View.INVISIBLE
             tvMessage.text = message
     }
 

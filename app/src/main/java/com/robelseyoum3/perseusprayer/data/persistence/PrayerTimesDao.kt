@@ -12,9 +12,7 @@ interface PrayerTimesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend  fun insertAndReplace(prayerTimes: PrayerTimes): Long
 
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)  //id data is already exist ignore it
-    fun insertOnIgnore(prayerTimes: PrayerTimes): Long
-
+    suspend fun insertOnIgnore(prayerTimes: PrayerTimes): Long
 
 }

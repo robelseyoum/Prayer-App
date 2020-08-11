@@ -19,15 +19,20 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import java.util.*
 import javax.inject.Inject
+import kotlin.text.Typography.times
 
 class MainRepository @Inject constructor(
     private val prayerTimesDao: PrayerTimesDao,
     private val prayerMethodsDao: PrayerMethodsDao
 ) {
     private val currentDate = SimpleDate(GregorianCalendar())
+    lateinit var times: PrayerTimes
+
     var repo: MutableLiveData<Resource<PrayerTimes>> = MutableLiveData()
 
     fun getPrayersTimes(_coordination: LatLng, methodType: String?) {
+
+        repo.value = Resource.Loading(null)
 
         val location = Location(
             _coordination.latitude,
@@ -61,23 +66,36 @@ class MainRepository @Inject constructor(
             AzanTime("Isha", azanTimes.ishaa().toString(), 0)
         )
 
-        val times = PrayerTimes(
+        times = PrayerTimes(
             dateTime,
             azanTime
         )
 
-        repo.value = Resource.Success(times)
-
-        CoroutineScope(IO).launch {
-            prayerTimesDao.insertOnIgnore(times)
+        if(times.id.equals(null) && times.azanTimes.isNullOrEmpty() && times.dateTimes.isNullOrEmpty()){
+            repo.value = Resource.Error("No Prayer date and time found")
+        } else {
+            repo.value = Resource.Success(times)
         }
 
     }
 
-    fun saveMethodOfCalculationToDatabase(params: String) {
+    fun savePrayerTimeToCache(){
+        CoroutineScope(IO ).launch {
+            prayerTimesDao.insertOnIgnore(times)
+        }
+    }
+
+     fun saveMethodOfCalculationToCache(params: String) {
         CoroutineScope(IO ).launch {
             val prayerMethods = PrayerMethods(mutableMapOf(("prayerMethod" to params)))
             prayerMethodsDao.insertOnIgnore(prayerMethods)
+        }
+    }
+
+    fun updatePrayerTimeFromCache(prayerMethod: String){
+        CoroutineScope(IO).launch{
+            val updatePrayerMethod = mutableMapOf(("prayerMethod" to prayerMethod))
+            prayerMethodsDao.updatePrayerMethods(updatePrayerMethod)
         }
     }
 
