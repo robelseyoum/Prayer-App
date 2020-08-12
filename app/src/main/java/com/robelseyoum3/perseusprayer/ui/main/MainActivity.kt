@@ -13,6 +13,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
@@ -57,13 +58,13 @@ class MainActivity : BaseActivity()  {
         val navController =  findNavController(R.id.main_nav_host_fragment)
         bottomNavigationView.setupWithNavController(navController)
 
-        initPrayerMethod()
-
         viewModel.toggleLoading(true)
+
+        initPrayerMethod()
         getLastLocation()
     }
 
-    fun initPrayerMethod() {
+    private fun initPrayerMethod() {
             viewModel.initPrayerMethodModel()
     }
 
@@ -76,7 +77,6 @@ class MainActivity : BaseActivity()  {
      * get location data is code snippet is inspired from
      * https://www.androdocs.com/tutorials/getting-current-location-latitude-longitude-in-android-using-kotlin.html
      */
-
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
         if (checkPermissions()) {

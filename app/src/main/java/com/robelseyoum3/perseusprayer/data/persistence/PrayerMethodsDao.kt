@@ -11,13 +11,13 @@ import com.robelseyoum3.perseusprayer.data.model.PrayerMethods
 interface PrayerMethodsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-   suspend fun insertAndReplace(prayerMethods: PrayerMethods): Long
+    suspend fun insertAndReplace(prayerMethods: PrayerMethods): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)  //id data is already exist ignore it
-    fun insertOnIgnore(prayerMethods: PrayerMethods): Long
+    suspend fun insertOnIgnore(prayerMethods: PrayerMethods): Long
 
    @Query("UPDATE prayer_methods SET methodBased =:methodBased")
-    fun updatePrayerMethods(methodBased:  MutableMap<String, String>)
+    suspend fun updatePrayerMethods(methodBased:  MutableMap<String, String>)
 
     @Query("SELECT * from prayer_methods")
     fun selectAllPrayerMethod() : PrayerMethods

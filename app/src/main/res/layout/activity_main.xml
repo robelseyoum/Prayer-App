@@ -8,10 +8,10 @@
     tools:context=".ui.main.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
 
         <fragment
             android:id="@+id/main_nav_host_fragment"
@@ -25,7 +25,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/main_nav"
             tools:layout="@layout/prayertimes_fragment" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
