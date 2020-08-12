@@ -4,6 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.robelseyoum3.perseusprayer.data.model.*
 import com.robelseyoum3.perseusprayer.data.persistence.PrayerMethodsDao
 import com.robelseyoum3.perseusprayer.data.persistence.PrayerTimesDao
@@ -13,6 +15,7 @@ import com.robelseyoum3.perseusprayer.utils.Resource
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
 import org.junit.Before
@@ -30,8 +33,9 @@ import java.util.concurrent.TimeoutException
 @RunWith(MockitoJUnitRunner::class)
 class MainViewModelTest {
 
-    @get:Rule
-    val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
 
     @get:Rule
     val testCoroutineRule = TestCoroutineRule()
@@ -41,32 +45,36 @@ class MainViewModelTest {
     @JvmField
     val instantExecutorRule : TestRule = InstantTaskExecutorRule()
 
-    lateinit var mainViewModel: MainViewModel
-
-
-    @Mock
+    @MockK
     lateinit var mainRepository: MainRepository
+
+    lateinit var mainViewModel: MainViewModel
 
     /*  ------------------------------------------------------- */
 
-    @Mock
+    @MockK
     lateinit var prayerMethodsDao: PrayerMethodsDao
 
-    @Mock
+    @MockK
     lateinit var prayerTimesDao: PrayerTimesDao
 
-    @Mock
+    @MockK
     lateinit var prayerTimes: PrayerTimes
 
-    @Mock
+    @MockK
     lateinit var prayerMethods: PrayerMethods
 
-    @Mock
+    @MockK
     private lateinit var prayerTimesObserver: Observer<Resource<PrayerTimes>>
+
+    @MockK
+    private lateinit var prayerMethodObserver: Observer<Resource<PrayerMethods>>
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
+        mainViewModel = MainViewModel(mainRepository, prayerMethodsDao)
+
     }
 
     /* Copyright 2019 Google LLC.
@@ -119,22 +127,23 @@ class MainViewModelTest {
             )
         )
 
-        val times = PrayerTimes(
-            dateTime,
-            azanTime
-        )
+        val times = PrayerTimes(dateTime, azanTime)
+
+        val coordination = LatLng(Latitude, Longitude)
+
     /**
      getPrayertime success
      */
     @Test
     fun getPrayerTime_successPrayerTimes(){
 
-        val coordination = LatLng(Latitude, Longitude)
-
-        every { mainRepository.getPrayersTimes(coordination, defaultPrayerMethods) }
-
-        mainViewModel.getPrayerTimes()
-
+//        mainViewModel.getPrayerTimes()
+//
+//        mainRepository.getPrayersTimes(coordination, defaultPrayerMethods)
+//
+//        assertEquals(mainRepository.repo.getOrAwaitValue(), Resource.Success(times))
+//
+//        assertEquals(mainViewModel.azanTime.getOrAwaitValue(), Resource.Success(times))
 
     }
 
