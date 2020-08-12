@@ -3,27 +3,18 @@ package com.robelseyoum3.perseusprayer
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
 import com.robelseyoum3.perseusprayer.data.model.*
 import com.robelseyoum3.perseusprayer.data.persistence.PrayerMethodsDao
-import com.robelseyoum3.perseusprayer.data.persistence.PrayerTimesDao
-import com.robelseyoum3.perseusprayer.data.repository.MainRepository
+import com.robelseyoum3.perseusprayer.data.repository.PrayerTimeRepo
 import com.robelseyoum3.perseusprayer.ui.main.MainViewModel
-import com.robelseyoum3.perseusprayer.utils.Resource
 import io.mockk.MockKAnnotations
-import io.mockk.every
 import io.mockk.impl.annotations.MockK
-import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -46,34 +37,35 @@ class MainViewModelTest {
     val instantExecutorRule : TestRule = InstantTaskExecutorRule()
 
     @MockK
-    lateinit var mainRepository: MainRepository
+    lateinit var prayerTimeRepo: PrayerTimeRepo
 
     lateinit var mainViewModel: MainViewModel
-
-    /*  ------------------------------------------------------- */
 
     @MockK
     lateinit var prayerMethodsDao: PrayerMethodsDao
 
-    @MockK
-    lateinit var prayerTimesDao: PrayerTimesDao
 
-    @MockK
-    lateinit var prayerTimes: PrayerTimes
-
-    @MockK
-    lateinit var prayerMethods: PrayerMethods
-
-    @MockK
-    private lateinit var prayerTimesObserver: Observer<Resource<PrayerTimes>>
-
-    @MockK
-    private lateinit var prayerMethodObserver: Observer<Resource<PrayerMethods>>
+//    /*  ------------------------------------------------------- */
+//
+//    @MockK
+//    lateinit var prayerTimesDao: PrayerTimesDao
+//
+//    @MockK
+//    lateinit var prayerTimes: PrayerTimes
+//
+//    @MockK
+//    lateinit var prayerMethods: PrayerMethods
+//
+//    @MockK
+//    private lateinit var prayerTimesObserver: Observer<Resource<PrayerTimes>>
+//
+//    @MockK
+//    private lateinit var prayerMethodObserver: Observer<Resource<PrayerMethods>>
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        mainViewModel = MainViewModel(mainRepository, prayerMethodsDao)
+        mainViewModel = MainViewModel(prayerTimeRepo, prayerMethodsDao)
 
     }
 

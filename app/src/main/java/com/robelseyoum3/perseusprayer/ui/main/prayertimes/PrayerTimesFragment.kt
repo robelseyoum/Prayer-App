@@ -25,6 +25,8 @@ import com.robelseyoum3.perseusprayer.utils.Constants.Companion._MUSLIM_LEAGUE
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion._NORTH_AMERICA
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion._UMM_ALQURRA
 import com.robelseyoum3.perseusprayer.utils.Resource
+import com.robelseyoum3.perseusprayer.utils.checkPrayerBased
+import com.robelseyoum3.perseusprayer.utils.checkPrayersBased
 import kotlinx.android.synthetic.main.prayertimes_fragment.*
 import java.util.*
 import javax.inject.Inject
@@ -86,35 +88,17 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     private fun subscribeObserver() {
 
-        mainViewModel.azanTime.observe(this, Observer { prayerData ->
-
-            when(prayerData) {
-
-                is Resource.Success -> {setPrayerTimesFields(prayerData.data!!) }
-
-                is Resource.Error -> { displayMessageContainer(prayerData.message)}
-            }
+        mainViewModel.azanTime.observe(this, Observer { prayerTimes ->
+            setPrayerTimesFields(prayerTimes)
         })
 
         mainViewModel.prayerMethod.observe(this, Observer {
             it?.let {
-                change_prayer_based_text.text = "Based on : ${checkPrayerBased(it)}"
+                change_prayer_based_text.text = "Based on : ${checkPrayersBased(it)}"
                 mainViewModel.getPrayerTimes()
             }
         })
 
-    }
-
-    private fun checkPrayerBased(methodType: String?) : String {
-        return when (methodType) {
-            _EGYPT_SURVEY -> EGYPT_SURVEY
-            _FIXED_ISHAA -> FIXED_ISHAA
-            _KARACHI_HANAF -> KARACHI_HANAF
-            _MUSLIM_LEAGUE -> MUSLIM_LEAGUE
-            _NORTH_AMERICA -> NORTH_AMERICA
-            _UMM_ALQURRA -> UMM_ALQURRA
-            else -> "University of Islamic Sciences, Karachi (Hanafi)"
-        }
     }
 
     private fun setPrayerTimesFields(prayerTimes: PrayerTimes) {

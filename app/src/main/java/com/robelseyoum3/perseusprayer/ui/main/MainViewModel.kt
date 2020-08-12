@@ -1,10 +1,11 @@
 package com.robelseyoum3.perseusprayer.ui.main
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.robelseyoum3.perseusprayer.data.model.LatLng
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
-import com.robelseyoum3.perseusprayer.data.persistence.PrayerMethodsDao
-import com.robelseyoum3.perseusprayer.data.repository.MainRepository
+import com.robelseyoum3.perseusprayer.data.repository.IPrayerDatabase
+import com.robelseyoum3.perseusprayer.data.repository.IPrayerTime
 import com.robelseyoum3.perseusprayer.utils.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -13,21 +14,21 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class MainViewModel  @Inject constructor(val mainRepository: MainRepository, val prayerMethodsDao: PrayerMethodsDao) : ViewModel()  {
+class MainViewModel  @Inject constructor(private val prayerTimeRepo: IPrayerTime, private val prayerDatabaseRepo: IPrayerDatabase) : ViewModel()  {
 
     var latlng: MutableLiveData<LatLng> = MutableLiveData()
     var prayerMethod: MutableLiveData<String> = MutableLiveData()
     var isLoading: MutableLiveData<Resource<Boolean>> = MutableLiveData()
 
-    val azanTime: LiveData<Resource<PrayerTimes>> = mainRepository.repo
+    val azanTime: MutableLiveData<PrayerTimes> = MutableLiveData()
 
     fun initPrayerMethodModel(){
         CoroutineScope(IO).launch {
-            val method = prayerMethodsDao.selectAllPrayerMethod()
+            val method = prayerDatabaseRepo.getPrayerMethod()
 
             withContext(Main){
                 takeIf { method == null }?.apply {
-                    mainRepository.saveMethodOfCalculationToCache(defaultMethod)
+                    prayerDatabaseRepo.savePrayerMethod(defaultMethod)
                     prayerMethod.value = defaultMethod
                 }?.run {
                     prayerMethod.value = method.methodBased["prayerMethod"]
@@ -37,15 +38,18 @@ class MainViewModel  @Inject constructor(val mainRepository: MainRepository, val
     }
 
     fun getPrayerTimes(){
-        mainRepository.getPrayersTimes(latlng.value!!, prayerMethod.value)
+        val prayerTimes = prayerTimeRepo.getPrayersTimes(latlng.value!!, prayerMethod.value)
+        azanTime.value = prayerTimes
     }
 
     fun updatePrayerMethods(prayerMethod: String){
-        mainRepository.updatePrayerTimeFromCache(prayerMethod)
+        prayerDatabaseRepo.updatePrayerMethod(prayerMethod)
     }
 
     fun addPrayerTimes(){
-        mainRepository.savePrayerTimeToCache()
+        azanTime.value?.let {
+            prayerDatabaseRepo.savePrayerTime(it)
+        }
     }
 
     fun setLocationCoordination(latitude: Double, longitude: Double) {
