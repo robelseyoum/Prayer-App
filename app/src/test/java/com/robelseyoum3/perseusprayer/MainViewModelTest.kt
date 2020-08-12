@@ -3,27 +3,20 @@ package com.robelseyoum3.perseusprayer
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
 import com.robelseyoum3.perseusprayer.data.model.*
 import com.robelseyoum3.perseusprayer.data.persistence.PrayerMethodsDao
 import com.robelseyoum3.perseusprayer.data.persistence.PrayerTimesDao
-import com.robelseyoum3.perseusprayer.data.repository.MainRepository
+import com.robelseyoum3.perseusprayer.data.repository.PrayerTimeRepo
 import com.robelseyoum3.perseusprayer.ui.main.MainViewModel
 import com.robelseyoum3.perseusprayer.utils.Resource
 import io.mockk.MockKAnnotations
-import io.mockk.every
 import io.mockk.impl.annotations.MockK
-import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -40,13 +33,12 @@ class MainViewModelTest {
     @get:Rule
     val testCoroutineRule = TestCoroutineRule()
 
-    //Run task synchronously
     @Rule
     @JvmField
     val instantExecutorRule : TestRule = InstantTaskExecutorRule()
 
     @MockK
-    lateinit var mainRepository: MainRepository
+    lateinit var prayerTimeRepo: PrayerTimeRepo
 
     lateinit var mainViewModel: MainViewModel
 
@@ -73,7 +65,7 @@ class MainViewModelTest {
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        mainViewModel = MainViewModel(mainRepository, prayerMethodsDao)
+        mainViewModel = MainViewModel(prayerTimeRepo, prayerMethodsDao)
 
     }
 
@@ -146,109 +138,5 @@ class MainViewModelTest {
 //        assertEquals(mainViewModel.azanTime.getOrAwaitValue(), Resource.Success(times))
 
     }
-
-    
-    /**
-    getPrayertime fail
-     */
-
-//    @Test
-//    fun getPrayerTime_errorPrayerTimes(){
-//
-//    }
-
-    /////////
-
-    /**
-    addPrayerTimes to cache success
-     */
-
-//    @Test
-//    fun insertPrayerTimes_returnRow(){
-//
-//    }
-
-    /**
-    addPrayerTimes to cache fail
-     */
-//    @Test
-//    fun insertPrayerTimes_returnFailure(){
-//
-//    }
-
-    /////////
-    /**
-    updatePrayerMethods success
-     */
-//    @Test
-//    fun updatePrayerMethods_returnPrayerMethodUpdated(){
-//
-//    }
-
-
-    /**
-    updatePrayerMethods fail
-     */
-
-//    @Test
-//    fun updatePrayerMethods_returnFailure(){
-//
-//    }
-
-/////////
-    /**
-    setLocationCoordination success
-    */
-
-//    @Test
-//    fun setLocationCoordination_successCoordinator(){
-//
-//    }
-
-    /**
-    setLocationCoordination fail
-     */
-
-//    @Test
-//    fun setLocationCoordination_errorCoordinator(){
-//
-//    }
-
-/////////
-    /**
-    setPrayerMethod success
-     */
-
-//    @Test
-//    fun setPrayerMethod_prayerMethodSuccess(){
-//
-//    }
-
-    /**
-    setPrayerMethod fail
-     */
-
-//    @Test
-//    fun setPrayerMethod_prayerMethodError(){
-//
-//    }
-
-/////////
-    /**
-    toggleLoading success
-     */
-//    @Test
-//    fun toggleLoading_successToggling(){
-//
-//    }
-
-    /**
-    toggleLoading fail
-     */
-//    @Test
-//    fun toggleLoading_errorToggling(){
-//
-//    }
-
 
 }

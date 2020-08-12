@@ -85,15 +85,8 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
     }
 
     private fun subscribeObserver() {
-
-        mainViewModel.azanTime.observe(this, Observer { prayerData ->
-
-            when(prayerData) {
-
-                is Resource.Success -> {setPrayerTimesFields(prayerData.data!!) }
-
-                is Resource.Error -> { displayMessageContainer(prayerData.message)}
-            }
+        mainViewModel.azanTime.observe(this, Observer { prayerTimes ->
+            setPrayerTimesFields(prayerTimes)
         })
 
         mainViewModel.prayerMethod.observe(this, Observer {
