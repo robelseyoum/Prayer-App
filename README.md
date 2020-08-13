@@ -3,7 +3,7 @@
 
 - Architecture: MVVM
 
-#Components: 
+# Components: 
 - Dagger
 - Viewmodel 
 - Room 
