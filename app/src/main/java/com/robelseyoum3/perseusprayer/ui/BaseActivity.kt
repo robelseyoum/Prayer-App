@@ -11,6 +11,6 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 
     val TAG: String = "AppDebug"
 
-    abstract fun setLocationCoordination(latitude: Double, longitude: Double) //get the the coordinate
+    abstract fun setLatLng(latitude: Double, longitude: Double) //get the the coordinate
 
 }

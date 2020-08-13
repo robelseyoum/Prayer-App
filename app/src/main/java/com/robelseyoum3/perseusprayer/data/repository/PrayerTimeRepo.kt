@@ -26,8 +26,8 @@ class PrayerTimeRepo : IPrayerTime {
 
         val azanTime = mutableListOf<AzanTime>()
 
-        for(i in 0..5){
-            if( i == 1){
+        for (i in 0..5) {
+            if (i == 1) {
                 azanTime.add(
                     AzanTime(
                         prayerNames[i] ?: error(""),

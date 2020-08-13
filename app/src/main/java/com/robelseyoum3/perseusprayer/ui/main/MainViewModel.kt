@@ -1,46 +1,43 @@
 package com.robelseyoum3.perseusprayer.ui.main
 
 import androidx.lifecycle.*
+import com.robelseyoum3.perseusprayer.concurrency.AppDispatchers
 import com.robelseyoum3.perseusprayer.data.model.LatLng
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.data.repository.IPrayerDatabase
 import com.robelseyoum3.perseusprayer.data.repository.IPrayerTime
+import com.robelseyoum3.perseusprayer.ui.BaseViewModel
 import com.robelseyoum3.perseusprayer.utils.Resource
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val prayerTimeRepo: IPrayerTime,
-    private val prayerDatabaseRepo: IPrayerDatabase
-) : ViewModel() {
+    private val prayerDatabaseRepo: IPrayerDatabase,
+    appDispatchers: AppDispatchers
+) : BaseViewModel(appDispatchers) {
 
-    var latlng: MutableLiveData<LatLng> = MutableLiveData()
+    var latLng: MutableLiveData<LatLng> = MutableLiveData()
     var prayerMethod: MutableLiveData<String> = MutableLiveData()
     var isLoading: MutableLiveData<Resource<Boolean>> = MutableLiveData()
 
     val azanTime: MutableLiveData<PrayerTimes> = MutableLiveData()
 
     fun initPrayerMethodModel() {
-        CoroutineScope(IO).launch {
+        launch{
             val method = prayerDatabaseRepo.getPrayerMethod()
 
-            withContext(Main) {
-                takeIf { method == null }?.apply {
-                    prayerDatabaseRepo.savePrayerMethod(defaultMethod)
-                    prayerMethod.value = defaultMethod
-                }?.run {
-                    prayerMethod.value = method.methodBased["prayerMethod"]
-                }
+            if(method != null){
+                prayerMethod.value = method.methodBased["prayerMethod"]
+            } else {
+                prayerDatabaseRepo.savePrayerMethod(defaultMethod)
+                prayerMethod.value = defaultMethod
             }
         }
     }
 
     fun getPrayerTimes() {
-        val prayerTimes = prayerTimeRepo.getPrayersTimes(latlng.value!!, prayerMethod.value)
+        val prayerTimes = prayerTimeRepo.getPrayersTimes(latLng.value!!, prayerMethod.value)
         azanTime.value = prayerTimes
     }
 
@@ -54,8 +51,8 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun setLocationCoordination(latitude: Double, longitude: Double) {
-        latlng.value = LatLng(latitude, longitude)
+    fun setLatLng(latitude: Double, longitude: Double) {
+        latLng.value = LatLng(latitude, longitude)
         toggleLoading(false)
     }
 
@@ -70,6 +67,4 @@ class MainViewModel @Inject constructor(
     companion object {
         const val defaultMethod = "KARACHI_HANAF"
     }
-
-
 }
