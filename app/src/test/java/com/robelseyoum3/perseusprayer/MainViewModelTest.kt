@@ -112,7 +112,7 @@ class MainViewModelTest {
         )
 
         val dateTime = mutableListOf(
-            DateTimes(
+            DateMonthYear(
                 "02",
                 "08",
                 "2020"

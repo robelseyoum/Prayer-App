@@ -1,17 +1,12 @@
 package com.robelseyoum3.perseusprayer.data.repository
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.azan.Azan
-import com.azan.Method
-import com.azan.PrayerTime
 import com.azan.astrologicalCalc.Location
 import com.azan.astrologicalCalc.SimpleDate
 import com.robelseyoum3.perseusprayer.data.model.*
-import com.robelseyoum3.perseusprayer.utils.Resource
 import com.robelseyoum3.perseusprayer.utils.checkPrayerBased
 import com.robelseyoum3.perseusprayer.utils.prayerNames
-import kotlinx.android.synthetic.main.view_time_line.view.*
 import java.util.*
 import javax.inject.Inject
 
@@ -31,7 +26,7 @@ class PrayerTimeRepo @Inject constructor() : IPrayerTime  {
         val imsaak = azan.getImsaak(currentDate)
 
         val dateTime = mutableListOf(
-            DateTimes(
+            DateMonthYear(
                 currentDate.day.toString(),
                 currentDate.month.toString(),
                 currentDate.year.toString()

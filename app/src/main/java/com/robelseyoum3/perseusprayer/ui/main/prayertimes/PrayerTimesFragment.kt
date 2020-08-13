@@ -1,11 +1,13 @@
 package com.robelseyoum3.perseusprayer.ui.main.prayertimes
 
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +30,9 @@ import com.robelseyoum3.perseusprayer.utils.Resource
 import com.robelseyoum3.perseusprayer.utils.checkPrayerBased
 import com.robelseyoum3.perseusprayer.utils.checkPrayersBased
 import kotlinx.android.synthetic.main.prayertimes_fragment.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.*
 import javax.inject.Inject
 
@@ -50,6 +55,7 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
         return inflater.inflate(R.layout.prayertimes_fragment, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "PrayerTimesFragment: ${mainViewModel.hashCode()}")
@@ -60,6 +66,7 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun observePrayerTimes() {
         mainViewModel.isLoading.observe(this, Observer { isLoading ->
             if(!isLoading.data!!){
@@ -72,10 +79,6 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     private fun setClickListenerPrayerMethods() {
         change_prayer_based_text.setOnClickListener {
-//            val prayerMethodsDialog = PrayerMethodsDialog()
-//            val argument = Bundle()
-//            argument.putParcelable("calc_method", mainViewModel._prayerMethod.value)
-//            prayerMethodsDialog.arguments = arguments
             findNavController().navigate(R.id.prayerMethodsDialog)
         }
     }
@@ -86,10 +89,12 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
         rvTimes.adapter = prayerTimesAdapter
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun subscribeObserver() {
 
         mainViewModel.azanTime.observe(this, Observer { prayerTimes ->
             setPrayerTimesFields(prayerTimes)
+            currentDateTime(prayerTimes)
         })
 
         mainViewModel.prayerMethod.observe(this, Observer {
@@ -108,17 +113,12 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
             llMessageContainer.visibility = View.INVISIBLE
     }
 
-    private fun currentDateTime() {
-        val date = Calendar.getInstance().time
-        current_date.text = ""
-        current_time.text = ""
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun currentDateTime(prayerTimes: PrayerTimes){
+        val mTime = LocalDateTime.now()
+        current_time.text = mTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM))
+        current_date.text = mTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))
     }
 
-    private fun displayMessageContainer(message: String?) {
-            llMessageContainer.visibility = View.VISIBLE
-            rvTimes.visibility = View.INVISIBLE
-            progress_bar_frg.visibility = View.INVISIBLE
-            tvMessage.text = message
-    }
 
 }

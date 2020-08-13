@@ -9,7 +9,7 @@ import androidx.room.TypeConverters
 data class PrayerTimes (
 
     @TypeConverters(DateTimeConverter::class)
-    @ColumnInfo(name = "dateTimes") var dateTimes: MutableList<DateTimes>,
+    @ColumnInfo(name = "dateTimes") var dateTimes: MutableList<DateMonthYear>,
 
     @TypeConverters(AzanTimeConverter::class)
     @ColumnInfo(name = "azanTimes") var azanTimes: MutableList<AzanTime>

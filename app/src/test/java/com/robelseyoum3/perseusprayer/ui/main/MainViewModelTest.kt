@@ -125,7 +125,7 @@ class MainViewModelTest {
 
     private fun getFakePrayerTimes(): PrayerTimes {
         val dateTime = mutableListOf(
-            DateTimes(
+            DateMonthYear(
                 "13",
                 "08",
                 "2020"

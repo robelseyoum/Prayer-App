@@ -9,17 +9,17 @@ object DateTimeConverter {
 
     @TypeConverter
     @JvmStatic
-    fun stringToMutableList(mString: String): MutableList<DateTimes> {
+    fun stringToMutableList(mString: String): MutableList<DateMonthYear> {
         val gson = Gson()
-        val type = object : TypeToken<List<DateTimes>>() {}.type
+        val type = object : TypeToken<List<DateMonthYear>>() {}.type
         return gson.fromJson(mString, type)
     }
 
     @TypeConverter
     @JvmStatic
-    fun mutableListToString(mString: MutableList<DateTimes>): String{
+    fun mutableListToString(mString: MutableList<DateMonthYear>): String{
         val gson = Gson()
-        val type: Type = object : TypeToken<MutableList<DateTimes>>() {}.type
+        val type: Type = object : TypeToken<MutableList<DateMonthYear>>() {}.type
         return gson.toJson(mString, type)
     }
 }
