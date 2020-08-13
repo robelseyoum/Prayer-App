@@ -3,6 +3,7 @@ package com.robelseyoum3.perseusprayer.data.persistence
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 
 
@@ -14,5 +15,9 @@ interface PrayerTimesDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)  //id data is already exist ignore it
     suspend fun insertOnIgnore(prayerTimes: PrayerTimes): Long
+
+//    @Query("SELECT * from prayer_times")
+//    suspend fun selectAllPrayerTimes() : PrayerTimes
+
 
 }

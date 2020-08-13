@@ -65,7 +65,7 @@ class MainViewModelTest {
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        mainViewModel = MainViewModel(prayerTimeRepo, prayerMethodsDao)
+//        mainViewModel = MainViewModel(prayerTimeRepo, prayerMethodsDao)
 
     }
 

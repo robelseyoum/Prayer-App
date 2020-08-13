@@ -5,21 +5,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.location.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,11 +21,6 @@ import com.robelseyoum3.perseusprayer.R
 import com.robelseyoum3.perseusprayer.ui.BaseActivity
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion.PERMISSION_ID
 import com.robelseyoum3.perseusprayer.viewmodel.ViewModelProviderFactory
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 class MainActivity : BaseActivity()  {
@@ -68,9 +57,9 @@ class MainActivity : BaseActivity()  {
             viewModel.initPrayerMethodModel()
     }
 
-    override fun setLocationCoordination(latitude: Double, longitude: Double) {
+    override fun setLatlng(latitude: Double, longitude: Double) {
         //set the coordination
-        viewModel.setLocationCoordination(latitude, longitude)
+        viewModel.setLatlng(latitude, longitude)
     }
 
     /**
@@ -88,7 +77,7 @@ class MainActivity : BaseActivity()  {
                     } else {
                         val latitude = location.latitude
                         val longitude = location.longitude
-                        setLocationCoordination(latitude, longitude)
+                        setLatlng(latitude, longitude)
                     }
                 }
             } else {
