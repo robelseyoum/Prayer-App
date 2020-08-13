@@ -9,7 +9,8 @@
 - Room 
 - Navigation from Jetpack 
 - Coroutines 
-- Constraint Layouts- Mockito
+- Constraint Layouts
+- Mockito
 - Firebase Analytics, Git
 
 <p align="center">
