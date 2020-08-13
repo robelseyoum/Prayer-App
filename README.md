@@ -17,6 +17,6 @@
 
   <img src="During Dhuhr.png" alt="During Dhuhr" width="270" height="480"/>
 
-  <img src="kaaba_dr.png" alt="kaaba_diraction" width="270" height="480"/>
+  <img src="kaaba_dr" alt="kaaba_diraction" width="270" height="480"/>
 </p>
  
