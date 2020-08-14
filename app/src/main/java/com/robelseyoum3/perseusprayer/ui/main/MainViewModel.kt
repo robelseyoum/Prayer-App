@@ -1,5 +1,6 @@
 package com.robelseyoum3.perseusprayer.ui.main
 
+import android.location.Location
 import androidx.lifecycle.MutableLiveData
 import com.robelseyoum3.perseusprayer.concurrency.AppDispatchers
 import com.robelseyoum3.perseusprayer.data.model.LatLng
@@ -18,6 +19,7 @@ class MainViewModel  @Inject constructor(private val prayerTimeRepo: IPrayerTime
     var latLng: MutableLiveData<LatLng> = MutableLiveData()
     var prayerMethod: MutableLiveData<String> = MutableLiveData()
     var isLoading: MutableLiveData<Resource<Boolean>> = MutableLiveData()
+    var mLastLocation: MutableLiveData<Location> = MutableLiveData()
 
     val azanTime: MutableLiveData<PrayerTimes> = MutableLiveData()
 
@@ -54,6 +56,10 @@ class MainViewModel  @Inject constructor(private val prayerTimeRepo: IPrayerTime
     fun setLatlng(latitude: Double, longitude: Double) {
         latLng.value = LatLng(latitude, longitude)
         toggleLoading(false)
+    }
+
+    fun setLocation(location: Location){
+        mLastLocation.value = location
     }
 
     fun setPrayerMethod(prayerMethod: String) {
