@@ -8,7 +8,7 @@ import com.robelseyoum3.perseusprayer.R
 
 class SplashActivity : AppCompatActivity() {
 
-    private val splashTime = 2000L //3 second
+    private val splashTime = 2000L //2 second
     private lateinit var myHandler: Handler
 
     override fun onCreate(savedInstanceState: Bundle?) {

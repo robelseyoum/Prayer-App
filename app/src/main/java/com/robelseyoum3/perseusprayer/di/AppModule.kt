@@ -14,7 +14,6 @@ import com.robelseyoum3.perseusprayer.data.persistence.AppDatabase
 import com.robelseyoum3.perseusprayer.data.persistence.AppDatabase.Companion.DATABASE_NAME
 import com.robelseyoum3.perseusprayer.data.persistence.PrayerMethodsDao
 import com.robelseyoum3.perseusprayer.data.persistence.PrayerTimesDao
-import com.robelseyoum3.perseusprayer.utils.PreferenceKeys
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -42,19 +41,6 @@ class AppModule {
     @Provides
     fun providePrayerTimesDao(db: AppDatabase): PrayerTimesDao {
         return db.getPrayerTimesDao()
-    }
-
-    @Singleton
-    @Provides
-    fun provideSharedPreferences(application: Application): SharedPreferences {
-        return application.getSharedPreferences(PreferenceKeys.APP_PREFERENCES, Context.MODE_PRIVATE)
-    }
-
-
-    @Singleton
-    @Provides
-    fun provideSharedPrefsEditor(sharedPreferences: SharedPreferences): SharedPreferences.Editor{
-        return sharedPreferences.edit()
     }
 
     @Singleton

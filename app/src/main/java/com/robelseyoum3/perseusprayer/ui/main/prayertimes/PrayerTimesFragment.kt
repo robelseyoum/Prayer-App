@@ -39,11 +39,6 @@ import javax.inject.Inject
 class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     lateinit var prayerTimesAdapter: PrayerTimesAdapter
-    @Inject
-    lateinit var sharedPrefsEditor: SharedPreferences.Editor
-
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
 
     val dayMonth: String? = null
 

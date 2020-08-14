@@ -69,7 +69,7 @@ class PrayerMethodsDialog : DaggerDialogFragment() {
         }
     }
 
-    private fun setSelectedPrayerMethod(selectedMethodValue: String) {
+    fun setSelectedPrayerMethod(selectedMethodValue: String) {
         Log.d("setSelectedPrayerMethod", selectedMethodValue)
         when(selectedMethodValue) {
             EGYPT_SURVEY -> setPrayerMethodsValue(_EGYPT_SURVEY)
