@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.robelseyoum3.perseusprayer.R
+import com.robelseyoum3.perseusprayer.data.model.LatLng
 import com.robelseyoum3.perseusprayer.data.model.PrayerTimes
 import com.robelseyoum3.perseusprayer.ui.adapter.PrayerTimesAdapter
 import com.robelseyoum3.perseusprayer.utils.Constants.Companion.EGYPT_SURVEY
@@ -39,7 +40,6 @@ import javax.inject.Inject
 class PrayerTimesFragment : BasePrayerTimesFragment() {
 
     lateinit var prayerTimesAdapter: PrayerTimesAdapter
-
     val dayMonth: String? = null
 
     override fun onCreateView(
@@ -54,7 +54,6 @@ class PrayerTimesFragment : BasePrayerTimesFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "PrayerTimesFragment: ${mainViewModel.hashCode()}")
-
         setClickListenerPrayerMethods()
         setupRecyclerView()
         observePrayerTimes()

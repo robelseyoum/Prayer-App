@@ -27,6 +27,7 @@ class MainActivity : BaseActivity()  {
 
     lateinit var mFusedLocationClient: FusedLocationProviderClient
 
+
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
 
@@ -62,6 +63,7 @@ class MainActivity : BaseActivity()  {
         viewModel.setLatlng(latitude, longitude)
     }
 
+
     /**
      * get location data is code snippet is inspired from
      * https://www.androdocs.com/tutorials/getting-current-location-latitude-longitude-in-android-using-kotlin.html
@@ -77,6 +79,7 @@ class MainActivity : BaseActivity()  {
                     } else {
                         val latitude = location.latitude
                         val longitude = location.longitude
+                        viewModel.setLocation(location)
                         setLatlng(latitude, longitude)
                     }
                 }
